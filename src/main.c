@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2020/12/24 17:09:23 by amin             ###   ########.fr       */
+/*   Updated: 2020/12/24 19:22:10 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ int			main(int argc, char **argv, char **envp)
 			continue;
 		exe_commands(commands, g_envp);
 		free(commands);
-		//printf("%s\n", line);
+		printf("%s\n", line);
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2020/12/24 15:42:13 by amin             ###   ########.fr       */
+/*   Updated: 2020/12/25 18:24:14 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ char		*find_dir(char *str, int n);
 
 /* gnl */
 int			get_next_line(int fd, char **line);
-size_t		ft_strlcpy(char *dst, char const *src, size_t size);
 size_t		ft_strlen(char const *s);
-char		*ft_strchr(char const *s, int c);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strdup(char const *s1);
 void		ft_strdel(char **as);
 
