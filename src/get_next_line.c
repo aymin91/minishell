@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 16:41:13 by amin              #+#    #+#             */
-/*   Updated: 2020/12/24 09:38:20 by amin             ###   ########.fr       */
+/*   Updated: 2020/12/25 18:23:52 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-size_t			ft_strlcpy(char *dst, char const *src, size_t size)
-{
-	size_t		i;
-	size_t		src_len;
-
-	i = 0;
-	src_len = ft_strlen(src);
-	if (size == 0)
-		return (src_len);
-	while (src[i] && i < (size - 1))
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (src_len);
-}
 
 static char		*ft_strjoin_gnl(char *s1, char *s2)
 {
