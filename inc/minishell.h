@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2020/12/24 13:53:19 by amin             ###   ########.fr       */
+/*   Updated: 2020/12/24 15:42:13 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,8 @@ void		command_pwd(void);
 /* command_cd */
 char		*find_home_path(char *home, char **envp);
 void		command_cd(char **commands, char **envp);
+
+/* command_env */
+void		command_env(char **envp);
 
 #endif
