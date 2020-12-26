@@ -17,23 +17,27 @@ void	exe_builtin(char **commands, char **envp)
 	if (!ft_strncmp("echo", commands[0], 4))
 		command_echo(*commands);
 	// cd
-	if (!ft_strncmp("cd", commands[0], 2))
+	else if (!ft_strncmp("cd", commands[0], 2))
 		command_cd(commands, envp);
 	// pwd
-	if (!ft_strncmp("pwd", commands[0], 3))
+	else if (!ft_strncmp("pwd", commands[0], 3))
 		command_pwd();
 	// export
-	if (!ft_strncmp("export", commands[0], 6))
+	else if (!ft_strncmp("export", commands[0], 6))
 		printf("=======export\n");
 	// unset
-	if (!ft_strncmp("unset", commands[0], 5))
+	else if (!ft_strncmp("unset", commands[0], 5))
 		printf("=======unset\n");
 	// env
-	if (!ft_strncmp("env", commands[0], 3))
-		printf("=======env\n");
+	else if (!ft_strncmp("env", commands[0], 3))
+		command_env(envp);
 	// exit
-	if (!ft_strncmp("exit", commands[0], 4))
+	else if (!ft_strncmp("exit", commands[0], 4))
 		printf("=======exit\n");
+	/*
+	* TODO:
+	* else execve 써야함..
+	*/
 
 }
 
@@ -51,7 +55,7 @@ char			**get_commands(char *line)
 {
 	int			i;
 	int			nothing;
-	char		*tmp;
+	char		**tmp;
 	char		**commands;
 
 	nothing = 0;
@@ -59,10 +63,10 @@ char			**get_commands(char *line)
 	i = -1;
 	while (commands[++i])
 	{
-		tmp = ft_strtrim(commands[i], " ");
+		tmp = ft_split(commands[i], ' ');
 		nothing = (!tmp || !(*tmp)) ? 1 : 0;
 		free(commands[i]);
-		!nothing ? commands[i] = tmp : 0;
+		!nothing ? commands[i] = *tmp : 0;
 	}
 	if (nothing)
 	{ // 뭔가 더 필요.. 문법 검사 필요한 듯
@@ -73,7 +77,7 @@ char			**get_commands(char *line)
 	}
 	free(line);
 	//printf("-------------%s\n", commands[0]);
-	return (commands);
+	return (tmp);
 }
 
 static void		gnl_input(int n, char **line)

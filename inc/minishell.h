@@ -57,4 +57,7 @@ void		command_pwd(void);
 char		*find_home_path(char *home, char **envp);
 void		command_cd(char **commands, char **envp);
 
+/* command_env */
+void		command_env(char **envp);
+
 #endif
