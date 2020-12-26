@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2020/12/26 19:00:22 by gicho            ###   ########.fr       */
+/*   Updated: 2020/12/26 19:46:01 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void		set_envp(int argc, char **argv, char **envp)
 int			main(int argc, char **argv, char **envp)
 {
 	char	*line;
-	char	**commands;
+	// char	**commands;
 	//int		i;
 
 	set_envp(argc, argv, envp);
