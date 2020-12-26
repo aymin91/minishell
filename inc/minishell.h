@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2020/12/25 18:24:14 by gicho            ###   ########.fr       */
+/*   Updated: 2020/12/25 19:05:17 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int			get_next_line(int fd, char **line);
 size_t		ft_strlen(char const *s);
 char		*ft_strdup(char const *s1);
 void		ft_strdel(char **as);
+
+/* command_echo */
+void		command_echo(char *command);
 
 /* command_pwd */
 void		command_pwd(void);

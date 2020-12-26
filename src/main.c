@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2020/12/24 19:22:10 by gicho            ###   ########.fr       */
+/*   Updated: 2020/12/26 19:00:22 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	exe_builtin(char **commands, char **envp)
 {
-	//printf("%s\n", envp[0]);
-	// echo
 	if (!ft_strncmp("echo", commands[0], 4))
-		printf("=======echo\n");
+		command_echo(*commands);
 	// cd
 	if (!ft_strncmp("cd", commands[0], 2))
 		command_cd(commands, envp);
@@ -48,6 +46,7 @@ void	exe_commands(char **commands, char **envp)
 
 }
 
+// TODO: quote 내부에 semicolon 있는 경우 구분 할 것
 char			**get_commands(char *line)
 {
 	int			i;
@@ -160,11 +159,11 @@ int			main(int argc, char **argv, char **envp)
 		write(1, ">", 1);
 		if (!insert_input(&line))
 			continue;
-		if ((commands = get_commands(line)) == NULL)
-			continue;
-		exe_commands(commands, g_envp);
-		free(commands);
-		printf("%s\n", line);
+		exe_commands(&line, g_envp);
+		// if ((commands = get_commands(line)) == NULL)
+		// 	continue;
+		// exe_commands(commands, g_envp);
+		// free(commands);
 	}
 	return (0);
 }
