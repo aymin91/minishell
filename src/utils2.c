@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:36 by amin              #+#    #+#             */
-/*   Updated: 2020/12/24 09:38:38 by amin             ###   ########.fr       */
+/*   Updated: 2020/12/24 16:21:06 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,19 @@ int			find_equal(char *str)
 char		*find_str(char *str, int n)
 {
 	int		i;
+	int		j;
 	char	*tmp;
 
-	tmp = (char *)malloc(sizeof(char) * n + 1);
-	i = 0;
+	tmp = (char *)malloc(sizeof(char) * n);
+	i = 1;
+	j = 0;
 	while (str[i] && i < n)
 	{
-		tmp[i] = str[i];
+		tmp[j] = str[i];
 		i++;
+		j++;
 	}
-	tmp[i] = '\0';
+	tmp[j] = '\0';
 	return (tmp);
 }
 

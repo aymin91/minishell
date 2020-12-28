@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   command_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/26 16:40:25 by amin              #+#    #+#             */
-/*   Updated: 2020/12/25 18:23:44 by gicho            ###   ########.fr       */
+/*   Created: 2020/12/24 14:25:18 by amin              #+#    #+#             */
+/*   Updated: 2020/12/24 14:34:25 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_strdel(char **as)
+void	command_env(char **envp)
 {
-	if (as && *as)
-	{
-		free(*as);
-		*as = NULL;
-	}
+	int		i;
+
+	i = -1;
+	while (envp[++i])
+		ft_putendl_fd(envp[i], 1);
 }
