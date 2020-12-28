@@ -6,7 +6,11 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2020/12/24 13:53:19 by amin             ###   ########.fr       */
+=======
+/*   Updated: 2020/12/28 17:22:23 by amin             ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +61,16 @@ void		command_pwd(void);
 char		*find_home_path(char *home, char **envp);
 void		command_cd(char **commands, char **envp);
 
+<<<<<<< Updated upstream
+=======
+/* command_env */
+void		command_env(char **envp);
+
+/* command_exit */
+void		command_exit(char **command);
+
+/* command_echo */
+void		command_echo(char *com);
+
+>>>>>>> Stashed changes
 #endif

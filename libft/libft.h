@@ -6,7 +6,11 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:07:44 by amin              #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2020/12/24 10:07:46 by amin             ###   ########.fr       */
+=======
+/*   Updated: 2020/12/28 17:20:09 by amin             ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +26,9 @@ typedef	struct		s_list
 	struct	s_list	*next;
 }					t_list;
 
+int			ft_atoi(const char *nptr);
 void		ft_bzero(void *s, size_t n);
+int			ft_isdigit(int n);
 void		ft_putchar_fd(char c, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putstr_fd(char *s, int fd);
