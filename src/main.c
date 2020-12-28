@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2020/12/26 19:46:01 by gicho            ###   ########.fr       */
+/*   Updated: 2020/12/28 17:35:14 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	exe_builtin(char **commands, char **envp)
 {
+	//printf("%s\n", envp[0]);
+	// echo
 	if (!ft_strncmp("echo", commands[0], 4))
 		command_echo(*commands);
 	// cd
@@ -33,7 +35,7 @@ void	exe_builtin(char **commands, char **envp)
 		command_env(envp);
 	// exit
 	else if (!ft_strncmp("exit", commands[0], 4))
-		printf("=======exit\n");
+		command_exit(commands);
 	/*
 	* TODO:
 	* else execve 써야함..
@@ -47,36 +49,25 @@ void	exe_commands(char **commands, char **envp)
 	*	pipe, redir, dollar 기호 처리
 	*/
 	exe_builtin(commands, envp);
-
 }
 
-// TODO: quote 내부에 semicolon 있는 경우 구분 할 것
-char			**get_commands(char *line)
+char			**get_commands(char *cmd)
 {
-	int			i;
+	//int			i;
 	int			nothing;
 	char		**tmp;
-	char		**commands;
 
 	nothing = 0;
-	commands = ft_split(line, ';');
-	i = -1;
-	while (commands[++i])
-	{
-		tmp = ft_split(commands[i], ' ');
-		nothing = (!tmp || !(*tmp)) ? 1 : 0;
-		free(commands[i]);
-		!nothing ? commands[i] = *tmp : 0;
-	}
+	tmp = ft_split(cmd, ' ');
+	nothing = (!tmp || !(tmp)) ? 1: 0;
+	free(cmd);
+	!nothing ? cmd = *tmp : 0;
 	if (nothing)
 	{ // 뭔가 더 필요.. 문법 검사 필요한 듯
-		free(commands);
-		ft_putendl_fd("error", 2);
-		free(line);
+		free(cmd);
+		ft_putendl_fd("syntax error near unexpected token `;'", 2);
 		return (0);
 	}
-	free(line);
-	//printf("-------------%s\n", commands[0]);
 	return (tmp);
 }
 
@@ -146,7 +137,6 @@ void		set_envp(int argc, char **argv, char **envp)
 	{
 		if (!(g_envp[i] = ft_strdup(envp[i])))
 			ft_exit();
-		// printf("%d, %s\n", i, g_envp[i]);
 		i++;
 	}
 }
@@ -154,20 +144,28 @@ void		set_envp(int argc, char **argv, char **envp)
 int			main(int argc, char **argv, char **envp)
 {
 	char	*line;
-	// char	**commands;
-	//int		i;
+	char	**commands;
+	char	**tmp;
+	int		i;
 
+	i = -1;
 	set_envp(argc, argv, envp);
 	while (1)
 	{
 		write(1, ">", 1);
 		if (!insert_input(&line))
 			continue;
-		exe_commands(&line, g_envp);
-		// if ((commands = get_commands(line)) == NULL)
-		// 	continue;
-		// exe_commands(commands, g_envp);
-		// free(commands);
+		if (ft_strchr(line, ';'))
+			commands = ft_split(line, ';');
+		else
+			commands = ft_split(line, '\n');
+		while (commands[++i])
+		{
+			tmp = get_commands(commands[i]);
+			exe_commands(tmp, g_envp);
+		}
+		i = -1;
+		free(commands);
 	}
 	return (0);
 }

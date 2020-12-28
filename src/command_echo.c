@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-char *get_token(char **str, char con)
+char		*get_token(char **str, char con)
 {
-	char *token;
-	size_t i;
+	char	*token;
+	size_t	i;
 
 	i = 0;
 	while ((*str)[i] && (*str)[i] != con)
@@ -27,11 +27,11 @@ char *get_token(char **str, char con)
 	return (token);
 }
 
-t_list *split_str_including_quotes(char *str)
+t_list			*split_str_including_quotes(char *str)
 {
-	t_list *head;
-	char c;
-
+	t_list		*head;
+	char		c;
+  
 	head = 0;
 	while (*str)
 	{
@@ -48,14 +48,14 @@ t_list *split_str_including_quotes(char *str)
 	return (head);
 }
 
-void print_lst(void *content)
+void	print_lst(void *content)
 {
 	ft_putendl_fd((char *)content, 1);
 }
 
-void print_strs(t_list *head)
+void		print_strs(t_list *head)
 {
-	int hasOptionN;
+	int		hasOptionN;
 
 	hasOptionN = 0;
 	while ((head = head->next))
@@ -77,7 +77,7 @@ void print_strs(t_list *head)
 		ft_putchar_fd('\n', 1);
 }
 
-void command_echo(char *com)
+void	command_echo(char *com)
 {
 	// TODO: 변수값 처리 $var
 	// echo "$(cat my_file.txt)"

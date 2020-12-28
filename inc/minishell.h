@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2020/12/25 19:05:17 by gicho            ###   ########.fr       */
+/*   Updated: 2020/12/28 17:22:23 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,11 @@ void		command_cd(char **commands, char **envp);
 
 /* command_env */
 void		command_env(char **envp);
+
+/* command_exit */
+void		command_exit(char **command);
+
+/* command_echo */
+void		command_echo(char *com);
 
 #endif
