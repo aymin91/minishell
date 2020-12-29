@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2020/12/28 17:22:23 by amin             ###   ########.fr       */
+/*   Updated: 2020/12/29 22:39:06 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,16 @@
 
 # define BUFFER_SIZE 1
 
-char	**g_envp;
+char	*g_pwd;
+
+typedef	struct	s_env
+{
+	char	*key;
+	char	*value;
+}				t_env;
+
+t_list		*g_list;
+
 
 /* main */
 
@@ -65,5 +74,8 @@ void		command_exit(char **command);
 
 /* command_echo */
 void		command_echo(char *com);
+
+/* command_export */
+void		command_export(char **cmd, char **envp);
 
 #endif

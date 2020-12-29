@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:37:13 by amin              #+#    #+#             */
-/*   Updated: 2020/12/24 14:36:01 by amin             ###   ########.fr       */
+/*   Updated: 2020/12/28 21:01:23 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	command_pwd(void)
 {
-	char	*pwd;
+	//char	*pwd;
 
-	pwd = getcwd(0, 1024);
-	ft_putendl_fd(pwd, 1);
-	free(pwd);
+	g_pwd = getcwd(0, 1024);
+	ft_putendl_fd(g_pwd, 1);
+	//free(g_pwd);
 }

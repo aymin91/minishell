@@ -3,38 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2020/12/28 17:35:14 by amin             ###   ########.fr       */
+/*   Updated: 2020/12/29 22:39:40 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_builtin(char **commands, char **envp)
+char		*specify_cmd(char *str)
 {
-	//printf("%s\n", envp[0]);
-	// echo
-	if (!ft_strncmp("echo", commands[0], 4))
-		command_echo(*commands);
+	char	*res;
+
+	res = 0;
+	if (check_quote(str))
+		res = parse_quote(str);
+	else if (check_env(str))
+		res = parse_env(str);
+	free(str);
+	return (res);
+}
+
+char		**split_cmds(char *cmd)
+{
+	int		i;
+	char	**cmd;
+
+	if (!(cmd = ft_split(cmd, ' ')))
+		return (0);
+	i = -1;
+	while (cmd[++i])
+	{
+		if ((ft_strlen(cmd[i] != 1)
+			&& (check_quote(cmd[i]) || check_env(cmd[i]))))
+			cmd[i] = specify_cmd(cmd[i]);
+	}
+	return (cmd);
+}
+
+void		exe_builtin(char *commands)
+{
+	char	**command;
+
+	command = split_cmds(commands);
+	if (!ft_strncmp("echo", command[0], 4))
+		command_echo(commands);
 	// cd
-	else if (!ft_strncmp("cd", commands[0], 2))
-		command_cd(commands, envp);
+	else if (!ft_strncmp("cd", command[0], 2))
+		command_cd(commands, g_list);
 	// pwd
-	else if (!ft_strncmp("pwd", commands[0], 3))
+	else if (!ft_strncmp("pwd", command[0], 3))
 		command_pwd();
 	// export
-	else if (!ft_strncmp("export", commands[0], 6))
-		printf("=======export\n");
+	else if (!ft_strncmp("export", command[0], 6))
+		command_export(commands, g_list);
 	// unset
-	else if (!ft_strncmp("unset", commands[0], 5))
+	else if (!ft_strncmp("unset", command[0], 5))
 		printf("=======unset\n");
 	// env
-	else if (!ft_strncmp("env", commands[0], 3))
-		command_env(envp);
+	else if (!ft_strncmp("env", command[0], 3))
+		command_env(g_list);
 	// exit
-	else if (!ft_strncmp("exit", commands[0], 4))
+	else if (!ft_strncmp("exit", command[0], 4))
 		command_exit(commands);
 	/*
 	* TODO:
@@ -43,32 +74,63 @@ void	exe_builtin(char **commands, char **envp)
 
 }
 
-void	exe_commands(char **commands, char **envp)
+void	exe_commands(char *commands)
 {
 	/*	TODO:
 	*	pipe, redir, dollar 기호 처리
 	*/
-	exe_builtin(commands, envp);
+	exe_builtin(commands);
 }
 
-char			**get_commands(char *cmd)
+static int	check_semicolon(const char *cmd)
 {
-	//int			i;
-	int			nothing;
-	char		**tmp;
+	int		i;
+	char	*tmp;
 
+	i = -1;
+	tmp = ft_strtrim(cmd, " ");
+	if (tmp[0] == ';')
+	{
+		free(tmp);
+		return (1);
+	}
+	while (tmp[++i])
+	{
+		if (tmp[i] == ';' && tmp[i + 1] == ';')
+		{
+			free(tmp);
+			return (1);
+		}
+	}
+	free(tmp);
+	return (0);
+}
+
+char		**get_commands(char *cmd)
+{
+	int		i;
+	int		nothing;
+	char	*tmp;
+	char	**cmds;
+
+	i = -1;
 	nothing = 0;
-	tmp = ft_split(cmd, ' ');
-	nothing = (!tmp || !(tmp)) ? 1: 0;
-	free(cmd);
-	!nothing ? cmd = *tmp : 0;
-	if (nothing)
-	{ // 뭔가 더 필요.. 문법 검사 필요한 듯
-		free(cmd);
+	cmds = ft_split(cmd, ';');
+	while (cmds[++i])
+	{
+		tmp = ft_strtrim(cmds[i], " ");
+		nothing = (!tmp || !(*tmp)) ? 1: 0;
+		free(cmds[i]);
+		!nothing ? cmds[i] = tmp : 0;
+	}
+	if (nothing || check_semicolon(cmd))
+	{
+		free(cmds);
 		ft_putendl_fd("syntax error near unexpected token `;'", 2);
 		return (0);
 	}
-	return (tmp);
+	free(cmd);
+	return (cmds);
 }
 
 static void		gnl_input(int n, char **line)
@@ -125,20 +187,24 @@ int			insert_input(char **line)
 	return (1);
 }
 
-void		set_envp(int argc, char **argv, char **envp)
+t_list		*set_envp(int argc, char **argv, char **envp)
 {
 	int		i;
+	t_env	*env;
 
 	(void)argc;
 	(void)argv;
-	g_envp = (char **)ft_envmalloc(sizeof(char *) * (envp_len(envp) + 1));
 	i = 0;
-	while (envp[i])
+	while (*envp)
 	{
-		if (!(g_envp[i] = ft_strdup(envp[i])))
-			ft_exit();
-		i++;
+		env = (t_env *)malloc(sizeof(t_env));
+		i = ft_strchr(*envp, '=') - *envp;
+		env->key = ft_substr(*envp, 0, i);
+		env->value = ft_substr(*envp, i + 1, ft_strlen(*envp) - i - 1);
+		ft_lstadd_back(&g_list, ft_lstnew(env));
+		envp++;
 	}
+	return (g_list);
 }
 
 int			main(int argc, char **argv, char **envp)
@@ -148,23 +214,20 @@ int			main(int argc, char **argv, char **envp)
 	char	**tmp;
 	int		i;
 
-	i = -1;
 	set_envp(argc, argv, envp);
 	while (1)
 	{
 		write(1, ">", 1);
 		if (!insert_input(&line))
 			continue;
-		if (ft_strchr(line, ';'))
-			commands = ft_split(line, ';');
-		else
-			commands = ft_split(line, '\n');
+		if ((commands = get_commands(line)) == NULL)
+			continue;
+		i = -1;
 		while (commands[++i])
 		{
-			tmp = get_commands(commands[i]);
-			exe_commands(tmp, g_envp);
+			exe_commands(commands[i]);
+			free(commands[i]);
 		}
-		i = -1;
 		free(commands);
 	}
 	return (0);

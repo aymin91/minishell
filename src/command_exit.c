@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 23:33:48 by amin              #+#    #+#             */
-/*   Updated: 2020/12/28 16:05:34 by amin             ###   ########.fr       */
+/*   Updated: 2020/12/28 20:24:53 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static int	check_digit_str(char *str)
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);
-
-
 		i++;
 	}
 	return (1);

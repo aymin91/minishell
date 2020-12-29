@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 18:36:35 by gicho             #+#    #+#             */
-/*   Updated: 2020/12/26 19:40:35 by gicho            ###   ########.fr       */
+/*   Updated: 2020/12/28 20:20:52 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_list			*split_str_including_quotes(char *str)
 {
 	t_list		*head;
 	char		c;
-  
+
 	head = 0;
 	while (*str)
 	{

@@ -6,18 +6,11 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:31 by amin              #+#    #+#             */
-/*   Updated: 2020/12/24 09:38:33 by amin             ###   ########.fr       */
+/*   Updated: 2020/12/29 21:13:49 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_exit(void)
-{
-	ft_freearr(g_envp);
-	write(1, "\n", 1);
-	exit(0);
-}
 
 void		*ft_envmalloc(size_t size)
 {
@@ -42,7 +35,6 @@ void		ft_freearr(char **arr)
 		i++;
 	}
 	free(arr);
-	arr = NULL;
 }
 
 int		envp_len(char **envp)
