@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_pwd.c                                      :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/24 10:37:13 by amin              #+#    #+#             */
-/*   Updated: 2021/01/06 15:14:50 by amin             ###   ########.fr       */
+/*   Created: 2021/01/05 15:15:12 by amin              #+#    #+#             */
+/*   Updated: 2021/01/05 15:17:43 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	command_pwd(void)
+void	signal_handling(int sig)
 {
-	char	*pwd;
+	int		stat;
 
-	pwd = getcwd(0, 1024);
-	ft_putendl_fd(pwd, 1);
-	free(pwd);
+	if (sig == SIGINT)
+	{
+		ft_putstr_fd("\n", 1);
+		g_exit = 1;
+		return ;
+	}
+	else if (sig == SIGQUIT)
+	{
+		sig = wait(&stat);
+		ft_putstr_fd("\n", 1);
+		g_exit = 127;
+		if (sig != -1)
+			ft_putstr_fd("^\\Quit : 3\n", 1);
+	}
+	return ;
 }
