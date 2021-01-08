@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:25:03 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/08 19:00:07 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,7 @@ char			*find_dir(char *str, int n);
 char			*find_path(char *commands, t_list *envs);
 int				ft_puterr_fd(char *s1, char *s2, int fd);
 void			add_declear_env(char **tmp_env);
+char			*amin(char *str, t_list *envs);
+void			freeamin(char **str);
 
 #endif

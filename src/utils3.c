@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:22:36 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:32:51 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/08 19:01:56 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,18 @@ int					ft_puterr_fd(char *s1, char *s2, int fd)
 	ft_putstr_fd(s1, fd);
 	ft_putendl_fd(s2, fd);
 	return (127);
+}
+
+char				*amin(char *str, t_list *envs)
+{
+	if (!ft_strncmp(str, "?", ft_strlen(str)))
+		return (ft_itoa(g_exit));
+	return (ft_strdup(find_value(str, envs)));
+}
+
+void				freeamin(char **str)
+{
+	free(str[0]);
+	free(str[1]);
+	free(str[3]);
 }
