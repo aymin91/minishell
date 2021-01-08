@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:08:59 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 12:24:58 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:22:10 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			exe_builtin(char *commands, t_list *envs)
 {
 	char	**command;
 
-	command = split_command(commands,envs);
+	command = split_command(commands, envs);
 	if (!ft_strncmp("echo", command[0], ft_strlen(command[0])))
 		command_echo(command);
 	else if (!ft_strncmp("cd", command[0], 2))
@@ -85,7 +85,7 @@ void		exe_else(char *commands, t_list *envs)
 	g_exit = stat / 256;
 }
 
-void	exe_commands(char *commands, t_list *envs)
+void		exe_commands(char *commands, t_list *envs)
 {
 	if (isin_pipe(commands))
 		exe_pipe(commands, envs);

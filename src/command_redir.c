@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:35:05 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 16:42:17 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:26:35 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int			run_bredir(t_redir *redir, t_list *envs)
 	fd = open(redir->argv[redir->argc - 1], O_RDONLY, 0644);
 	if (fd < 0)
 	{
-		ft_puterr_fd(redir->argv[redir->argc - 1], ": No such file or directory", 2);
+		ft_puterr_fd(redir->argv[redir->argc - 1],
+		": No such file or directory", 2);
 		return (EXIT_FAILURE);
 	}
 	if (!(path = find_path(redir->commands[0], envs)))
@@ -40,10 +41,12 @@ int			run_dredir(t_redir *redir, t_list *envs)
 	int		fd;
 	char	*path;
 
-	fd = open(redir->argv[redir->argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0744);
+	fd = open(redir->argv[redir->argc - 1],
+	O_WRONLY | O_CREAT | O_APPEND, 0744);
 	if (fd < 0)
 	{
-		ft_puterr_fd(redir->argv[redir->argc - 1], ": No such file or directory", 2);
+		ft_puterr_fd(redir->argv[redir->argc - 1],
+		": No such file or directory", 2);
 		return (EXIT_FAILURE);
 	}
 	if (!(path = find_path(redir->commands[0], envs)))

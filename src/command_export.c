@@ -3,35 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   command_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:19:10 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 10:50:47 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:29:11 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		update_val(t_env *env, t_list **envs)
+static void	update_val(t_env *env, t_list **envs)
 {
 	free(((t_env *)(*envs)->content)->value);
 	((t_env *)(*envs)->content)->value = env->value;
 	free(env->key);
 	free(env);
-}
-
-void		add_declear_env(char **tmp_env)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	while (tmp_env[i])
-	{
-		tmp = ft_strjoin("declare -x ", tmp_env[i]);
-		tmp_env[i] = tmp;
-		i++;
-	}
 }
 
 void		sort_env(char **tmp_env)
@@ -130,4 +116,3 @@ void		command_export(char **command, t_list *envs)
 		command++;
 	}
 }
-

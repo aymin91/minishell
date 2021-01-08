@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 15:42:53 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 12:26:19 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:32:35 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_quote(t_quote *q)
+void			init_quote(t_quote *q)
 {
 	q->type = -1;
 	q->start = -1;
@@ -57,11 +57,11 @@ static void		check_quote(char *str, int i, t_quote *q)
 	check_end(str, i, q);
 }
 
-char		*parse_env(char *res, t_list *envs)
+char			*parse_env(char *res, t_list *envs)
 {
-	int		i;
-	int		start_point;
-	char	*str[4];
+	int			i;
+	int			start_point;
+	char		*str[4];
 
 	i = -1;
 	start_point = 0;
@@ -86,11 +86,11 @@ char		*parse_env(char *res, t_list *envs)
 	return (str[3]);
 }
 
-char		*parse_quote(char *res, t_list *envs)
+char			*parse_quote(char *res, t_list *envs)
 {
-	int		i;
-	char	*str[3];
-	t_quote	q;
+	int			i;
+	char		*str[3];
+	t_quote		q;
 
 	i = -1;
 	str[0] = "";

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 23:48:06 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 15:32:37 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:30:38 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			check_redir_error(char *str)
 	return (1);
 }
 
-int		check_redir_type(char *command, int i)
+int			check_redir_type(char *command, int i)
 {
 	if (command[i] == '>' && command[i + 1] == '>')
 		return (DREDIR);
@@ -35,7 +35,7 @@ int		check_redir_type(char *command, int i)
 	return (BREDIR);
 }
 
-int		check_export(char *command)
+int			check_export(char *command)
 {
 	if (ft_isdigit(command[0]) || command[0] == '=')
 		return (0);
@@ -56,7 +56,7 @@ void		print_export_env(char **tmp_env)
 	}
 }
 
-char	*sub_trim(char *command, int start, int i, char *str)
+char		*sub_trim(char *command, int start, int i, char *str)
 {
 	char	*tmp1;
 	char	*tmp2;

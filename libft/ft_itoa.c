@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 15:41:29 by amin              #+#    #+#             */
-/*   Updated: 2020/12/31 17:23:00 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:16:03 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@ static int	ft_size(long long n, int size)
 	return (ft_size(n / 10, size + 1));
 }
 
+static void	tmp(int *i, long long *nbr, int n)
+{
+	if (n < 0)
+	{
+		*i = 1;
+		*nbr = (long long)n * -1;
+	}
+	else
+	{
+		*i = 0;
+		*nbr = (long long)n;
+	}
+}
+
 char		*ft_itoa(int n)
 {
 	char		*num;
@@ -26,16 +40,7 @@ char		*ft_itoa(int n)
 	int			i;
 	long long	nbr;
 
-	if (n < 0)
-	{
-		i = 1;
-		nbr = (long long)n * -1;
-	}
-	else
-	{
-		i = 0;
-		nbr = (long long)n;
-	}
+	tmp(&i, &nbr, n);
 	size = ft_size(nbr, i);
 	if (!(num = (char *)malloc(size + 1)))
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 23:33:48 by amin              #+#    #+#             */
-/*   Updated: 2020/12/28 20:24:53 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:32:07 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,4 @@ void		command_exit(char **command)
 		ft_putstr_fd("exit: numeric argument required", 1);
 		exit(2);
 	}
-
 }

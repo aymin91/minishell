@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:58 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:06:22 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:31:32 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char		**get_commands(char *cmd)
 	while (cmds[++i])
 	{
 		tmp = ft_strtrim(cmds[i], " ");
-		nothing = (!tmp || !(*tmp)) ? 1: 0;
+		nothing = (!tmp || !(*tmp)) ? 1 : 0;
 		free(cmds[i]);
 		!nothing ? cmds[i] = tmp : 0;
 	}
@@ -63,10 +63,10 @@ char		**get_commands(char *cmd)
 	return (cmds);
 }
 
-static void		gnl_input(int n, char **line)
+static void	gnl_input(int n, char **line)
 {
-	char		*tmp;
-	char		*buf;
+	char	*tmp;
+	char	*buf;
 
 	buf = "";
 	while (!(get_next_line(0, line)))

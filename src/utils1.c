@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:31 by amin              #+#    #+#             */
-/*   Updated: 2021/01/07 18:23:42 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:29:29 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		ft_freearr(char **arr)
 	free(arr);
 }
 
-int		envp_len(char **envp)
+int			envp_len(char **envp)
 {
 	int		i;
 	int		cnt;
@@ -66,7 +66,7 @@ int			isin_key(char *key, t_list *envs)
 	return (0);
 }
 
-char	*find_value(char *key, t_list *envs)
+char		*find_value(char *key, t_list *envs)
 {
 	while (envs)
 	{

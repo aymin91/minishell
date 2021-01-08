@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:20:20 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 15:33:59 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:30:12 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		init_redir(char *commands, t_redir *redir)
 	redir->commands = NULL;
 }
 
-int		parse_redir2(t_redir *redir, int j)
+int			parse_redir2(t_redir *redir, int j)
 {
 	if (check_redir_error(redir->argv[j]))
 		return (-1);
@@ -88,11 +88,11 @@ void		open_file(t_redir *redir)
 	close(fd);
 }
 
-void			exe_redir(char *commands, t_list *envs)
+void		exe_redir(char *commands, t_list *envs)
 {
-	int			i;
-	int			res;
-	t_redir		redir;
+	int		i;
+	int		res;
+	t_redir	redir;
 
 	init_redir(commands, &redir);
 	if ((res = parse_redir1(commands, &redir)) <= 0)

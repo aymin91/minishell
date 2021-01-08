@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   command_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 14:25:18 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 00:28:36 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:27:43 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		print_env(t_list *envs)
+static void			print_env(t_list *envs)
 {
 	if (envs == NULL)
 		return ;
@@ -22,7 +22,7 @@ static void		print_env(t_list *envs)
 	print_env(envs->next);
 }
 
-int		check_env_value(char *command)
+int					check_env_value(char *command)
 {
 	if (command[0] == '=')
 		return (1);
@@ -31,9 +31,9 @@ int		check_env_value(char *command)
 	return (0);
 }
 
-static char 	*make_tmp(char *tmp, char *command)
+static char			*make_tmp(char *tmp, char *command)
 {
-	char 		*t;
+	char			*t;
 
 	if (tmp == NULL)
 		tmp = ft_strjoin(command, "\n");
@@ -46,7 +46,7 @@ static char 	*make_tmp(char *tmp, char *command)
 	return (tmp);
 }
 
-static int	check_env(char *command)
+static int			check_env(char *command)
 {
 	if (check_env_value(command) == 1)
 	{
@@ -65,7 +65,7 @@ static int	check_env(char *command)
 	return (1);
 }
 
-void		command_env(char **command, t_list *envs)
+void				command_env(char **command, t_list *envs)
 {
 	char	*tmp;
 

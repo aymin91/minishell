@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:36 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 16:43:34 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:24:38 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,18 @@ char		*find_dir(char *str, int n)
 	}
 	tmp[i] = '\0';
 	return (tmp);
+}
+
+void		add_declear_env(char **tmp_env)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (tmp_env[i])
+	{
+		tmp = ft_strjoin("declare -x ", tmp_env[i]);
+		tmp_env[i] = tmp;
+		i++;
+	}
 }

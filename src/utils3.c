@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:22:36 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 10:49:05 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:32:51 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ char				*find_path(char *commands, t_list *envs)
 	return (ft_strdup(commands));
 }
 
-int		ft_puterr_fd(char *s1, char *s2, int fd)
+int					ft_puterr_fd(char *s1, char *s2, int fd)
 {
 	ft_putstr_fd(s1, fd);
 	ft_putendl_fd(s2, fd);
 	return (127);
 }
-
