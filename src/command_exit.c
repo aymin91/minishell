@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 23:33:48 by amin              #+#    #+#             */
-/*   Updated: 2020/12/28 16:05:34 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:32:07 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static int	check_digit_str(char *str)
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);
-
-
 		i++;
 	}
 	return (1);
@@ -51,5 +49,4 @@ void		command_exit(char **command)
 		ft_putstr_fd("exit: numeric argument required", 1);
 		exit(2);
 	}
-
 }

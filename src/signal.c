@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/24 10:07:07 by amin              #+#    #+#             */
-/*   Updated: 2020/12/29 17:49:41 by amin             ###   ########.fr       */
+/*   Created: 2021/01/05 15:15:12 by amin              #+#    #+#             */
+/*   Updated: 2021/01/05 15:17:43 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	signal_handling(int sig)
 {
-	int			idx;
-	int			idx_join;
-	char		*join;
+	int		stat;
 
-	if (!s1 || !s2 || !(join = malloc(sizeof(char) *
-					(ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1))))
-		return (NULL);
-	idx = 0;
-	idx_join = 0;
-	while (s1[idx])
-		join[idx_join++] = s1[idx++];
-	idx = 0;
-	while (s2[idx])
-		join[idx_join++] = s2[idx++];
-	join[idx_join] = '\0';
-	return (join);
+	if (sig == SIGINT)
+	{
+		ft_putstr_fd("\n", 1);
+		g_exit = 1;
+		return ;
+	}
+	else if (sig == SIGQUIT)
+	{
+		sig = wait(&stat);
+		ft_putstr_fd("\n", 1);
+		g_exit = 127;
+		if (sig != -1)
+			ft_putstr_fd("^\\Quit : 3\n", 1);
+	}
+	return ;
 }

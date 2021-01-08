@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:31 by amin              #+#    #+#             */
-/*   Updated: 2020/12/24 09:38:33 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:29:29 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_exit(void)
-{
-	ft_freearr(g_envp);
-	write(1, "\n", 1);
-	exit(0);
-}
 
 void		*ft_envmalloc(size_t size)
 {
@@ -42,10 +35,9 @@ void		ft_freearr(char **arr)
 		i++;
 	}
 	free(arr);
-	arr = NULL;
 }
 
-int		envp_len(char **envp)
+int			envp_len(char **envp)
 {
 	int		i;
 	int		cnt;
@@ -58,4 +50,29 @@ int		envp_len(char **envp)
 		cnt++;
 	}
 	return (cnt);
+}
+
+int			isin_key(char *key, t_list *envs)
+{
+	int		i;
+	int		len;
+	int		key_point;
+
+	len = ft_strlen(key);
+	key_point = ft_strlen((char *)((t_env *)envs->content)->key);
+	i = (len > key_point) ? len : key_point;
+	if (ft_strncmp(key, ((t_env *)envs->content)->key, i) == 0)
+		return (1);
+	return (0);
+}
+
+char		*find_value(char *key, t_list *envs)
+{
+	while (envs)
+	{
+		if (isin_key(key, envs))
+			return (((t_env *)envs->content)->value);
+		envs = envs->next;
+	}
+	return ("");
 }

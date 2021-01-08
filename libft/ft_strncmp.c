@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:07:22 by amin              #+#    #+#             */
-/*   Updated: 2020/12/24 10:07:23 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:14:29 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strncmp(const char* str1, const char *str2, size_t n)
+int		ft_strncmp(const char *str1, const char *str2, size_t n)
 {
 	if (n == 0)
 		return (0);
-	while ((unsigned char)*str1 == (unsigned char)*str2 && *str1 != 0 && n-- > 1)
+	while ((unsigned char)*str1 == (unsigned char)*str2
+	&& *str1 != 0 && n-- > 1)
 	{
 		str1++;
 		str2++;
