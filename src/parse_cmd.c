@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:58 by amin              #+#    #+#             */
-/*   Updated: 2021/01/07 17:46:02 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 17:06:22 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ char		**get_commands(char *cmd)
 	{
 		tmp = ft_strtrim(cmds[i], " ");
 		nothing = (!tmp || !(*tmp)) ? 1: 0;
-		printf("trim - %s\n", cmds[i]);
 		free(cmds[i]);
 		!nothing ? cmds[i] = tmp : 0;
 	}
