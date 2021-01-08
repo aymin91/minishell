@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 15:42:53 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:32:35 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/08 18:51:06 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,13 @@ char			*parse_env(char *res, t_list *envs)
 				continue;
 			}
 			str[0] = ft_substr(res, start_point, i - start_point + 1);
-			str[1] = ft_strdup(find_value(str[0], envs));
+
+			if (!ft_strncmp(str[0],"?",ft_strlen(str[0]))) str[1] =  (ft_itoa(g_exit));
+			else str[1] = ft_strdup(find_value(str[0], envs));
+
 			str[2] = ft_strjoin(str[3], str[1]);
+			free(str[0]);
+			free(str[1]);
 			free(str[3]);
 			str[3] = str[2];
 			start_point = i + 1;

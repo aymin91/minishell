@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:31:48 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/08 18:32:04 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int			main(int argc, char **argv, char **envp)
 		i = -1;
 		while (commands[++i])
 		{
+			// ft_putendl_fd(commands[i],1);
 			exe_commands(commands[i], envs);
 			free(commands[i]);
 		}
