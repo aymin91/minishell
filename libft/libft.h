@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:07:44 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:19:03 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 16:15:08 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void				ft_lstclear(t_list **lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 void (*del)(void *));
+int					enclosedWithPairOfQuote(char *str);
 
 #endif
