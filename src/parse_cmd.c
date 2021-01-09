@@ -6,35 +6,11 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:58 by amin              #+#    #+#             */
-/*   Updated: 2021/01/09 18:58:08 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 19:24:28 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	check_semicolon(const char *cmd)
-{
-	int		i;
-	char	*tmp;
-
-	i = -1;
-	tmp = ft_strtrim(cmd, " ");
-	if (tmp[0] == ';')
-	{
-		free(tmp);
-		return (1);
-	}
-	while (tmp[++i])
-	{
-		if (tmp[i] == ';' && tmp[i + 1] == ';')
-		{
-			free(tmp);
-			return (1);
-		}
-	}
-	free(tmp);
-	return (0);
-}
 
 void free_content(void *content)
 {
@@ -64,7 +40,7 @@ char **list_to_2d_char(t_list *list)
 
 void push_last_ele(t_list **list, char *str)
 {
-	if (*ft_strtrim(str, " "))
+	if (*str)
 		ft_lstadd_back(list, ft_lstnew(str));
 	else
 		free(str);
@@ -76,6 +52,15 @@ void update(char a, char *b)
 		*b = a;
 	else if (*b == a)
 		*b = -1;
+}
+
+char *trim_spaces(char *str)
+{
+	char *ret;
+
+	ret = ft_strtrim(str, " ");
+	free(str);
+	return (ret);
 }
 
 char **split_commands(char *str)
@@ -93,12 +78,12 @@ char **split_commands(char *str)
 			update(*str, &quote);
 		else if (quote == -1 && *str == ';')
 		{
-			ft_lstadd_back(&list, ft_lstnew(ft_substr(start, 0, str - start)));
+			ft_lstadd_back(&list, ft_lstnew(trim_spaces(ft_substr(start, 0, str - start))));
 			start = str + 1;
 		}
 		++str;
 	}
-	push_last_ele(&list, ft_substr(start, 0, str - start));
+	push_last_ele(&list, trim_spaces(ft_substr(start, 0, str - start)));
 	return (list_to_2d_char(list));
 }
 
@@ -106,26 +91,21 @@ char		**get_commands(char *cmd)
 {
 	int		i;
 	int		nothing;
-	char	*tmp;
 	char	**cmds;
 
 	i = -1;
 	nothing = 0;
 	cmds = split_commands(cmd);
+	free(cmd);
 	while (cmds[++i])
 	{
-		tmp = ft_strtrim(cmds[i], " ");
-		nothing = (!tmp || !(*tmp)) ? 1 : 0;
-		free(cmds[i]);
-		!nothing ? cmds[i] = tmp : 0;
+		if (!(*cmds[i]))
+		{
+			ft_freearr(cmds);
+			ft_putendl_fd("syntax error near unexpected token `;'", 2);
+			return (0);
+		}
 	}
-	if (nothing || check_semicolon(cmd))
-	{
-		free(cmds);
-		ft_putendl_fd("syntax error near unexpected token `;'", 2);
-		return (0);
-	}
-	free(cmd);
 	return (cmds);
 }
 
