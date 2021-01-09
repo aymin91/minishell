@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:58 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:31:32 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 18:58:08 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,72 @@ static int	check_semicolon(const char *cmd)
 	return (0);
 }
 
+void free_content(void *content)
+{
+	free(content);
+}
+
+char **list_to_2d_char(t_list *list)
+{
+	char **ret;
+	int size;
+	int i;
+	t_list *tmp;
+
+	i = 0;
+	tmp = list;
+	size = ft_lstsize(list);
+	ret = (char**)malloc(sizeof(char*) * (size + 1));
+	ret[size] = 0;
+	while (list)
+	{
+		ret[i++] = ft_strdup(list->content);
+		list = list->next;
+	}
+	ft_lstclear(&tmp, free_content);
+	return (ret);
+}
+
+void push_last_ele(t_list **list, char *str)
+{
+	if (*ft_strtrim(str, " "))
+		ft_lstadd_back(list, ft_lstnew(str));
+	else
+		free(str);
+}
+
+void update(char a, char *b)
+{
+	if (*b == -1)
+		*b = a;
+	else if (*b == a)
+		*b = -1;
+}
+
+char **split_commands(char *str)
+{
+	t_list *list;
+	char quote;
+	char *start;
+
+	list = 0;
+	start = str;
+	quote = -1;
+	while (*str)
+	{
+		if (*str == S_QUOTE || *str == D_QUOTE)
+			update(*str, &quote);
+		else if (quote == -1 && *str == ';')
+		{
+			ft_lstadd_back(&list, ft_lstnew(ft_substr(start, 0, str - start)));
+			start = str + 1;
+		}
+		++str;
+	}
+	push_last_ele(&list, ft_substr(start, 0, str - start));
+	return (list_to_2d_char(list));
+}
+
 char		**get_commands(char *cmd)
 {
 	int		i;
@@ -45,7 +111,7 @@ char		**get_commands(char *cmd)
 
 	i = -1;
 	nothing = 0;
-	cmds = ft_split(cmd, ';');
+	cmds = split_commands(cmd);
 	while (cmds[++i])
 	{
 		tmp = ft_strtrim(cmds[i], " ");
