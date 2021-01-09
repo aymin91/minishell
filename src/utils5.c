@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 19:36:39 by gicho             #+#    #+#             */
-/*   Updated: 2021/01/09 19:42:37 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 20:10:48 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,23 @@ char	*trim_spaces(char *str)
 	ret = ft_strtrim(str, " ");
 	free(str);
 	return (ret);
+}
+
+int		is_valid_quote_pairs(char *str)
+{
+	char	c;
+
+	c = -1;
+	while (*str)
+	{
+		if (*str == '\"' || *str == '\'')
+		{
+			if (c == -1)
+				c = *str;
+			else if (c == *str)
+				c = -1;
+		}
+		++str;
+	}
+	return (c == -1);
 }
