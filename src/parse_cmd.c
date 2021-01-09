@@ -6,60 +6,64 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:58 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:31:32 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 19:44:09 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_semicolon(const char *cmd)
+static void	update(char a, char *b)
 {
-	int		i;
-	char	*tmp;
+	if (*b == -1)
+		*b = a;
+	else if (*b == a)
+		*b = -1;
+}
 
-	i = -1;
-	tmp = ft_strtrim(cmd, " ");
-	if (tmp[0] == ';')
+char		**split_commands(char *str)
+{
+	t_list	*list;
+	char	quote;
+	char	*start;
+
+	list = 0;
+	start = str;
+	quote = -1;
+	while (*str)
 	{
-		free(tmp);
-		return (1);
-	}
-	while (tmp[++i])
-	{
-		if (tmp[i] == ';' && tmp[i + 1] == ';')
+		if (*str == S_QUOTE || *str == D_QUOTE)
+			update(*str, &quote);
+		else if (quote == -1 && *str == ';')
 		{
-			free(tmp);
-			return (1);
+			ft_lstadd_back(&list,
+			ft_lstnew(trim_spaces(ft_substr(start, 0, str - start))));
+			start = str + 1;
 		}
+		++str;
 	}
-	free(tmp);
-	return (0);
+	push_last_ele(&list, trim_spaces(ft_substr(start, 0, str - start)));
+	return (list_to_2d_char(list));
 }
 
 char		**get_commands(char *cmd)
 {
 	int		i;
 	int		nothing;
-	char	*tmp;
 	char	**cmds;
 
 	i = -1;
 	nothing = 0;
-	cmds = ft_split(cmd, ';');
+	cmds = split_commands(cmd);
+	free(cmd);
 	while (cmds[++i])
 	{
-		tmp = ft_strtrim(cmds[i], " ");
-		nothing = (!tmp || !(*tmp)) ? 1 : 0;
-		free(cmds[i]);
-		!nothing ? cmds[i] = tmp : 0;
+		if (!(*cmds[i]))
+		{
+			ft_freearr(cmds);
+			ft_putendl_fd("syntax error near unexpected token `;'", 2);
+			return (0);
+		}
 	}
-	if (nothing || check_semicolon(cmd))
-	{
-		free(cmds);
-		ft_putendl_fd("syntax error near unexpected token `;'", 2);
-		return (0);
-	}
-	free(cmd);
 	return (cmds);
 }
 
