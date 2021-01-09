@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:58 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:31:32 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 15:15:57 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,33 +34,6 @@ static int	check_semicolon(const char *cmd)
 	}
 	free(tmp);
 	return (0);
-}
-
-char		**get_commands(char *cmd)
-{
-	int		i;
-	int		nothing;
-	char	*tmp;
-	char	**cmds;
-
-	i = -1;
-	nothing = 0;
-	cmds = ft_split(cmd, ';');
-	while (cmds[++i])
-	{
-		tmp = ft_strtrim(cmds[i], " ");
-		nothing = (!tmp || !(*tmp)) ? 1 : 0;
-		free(cmds[i]);
-		!nothing ? cmds[i] = tmp : 0;
-	}
-	if (nothing || check_semicolon(cmd))
-	{
-		free(cmds);
-		ft_putendl_fd("syntax error near unexpected token `;'", 2);
-		return (0);
-	}
-	free(cmd);
-	return (cmds);
 }
 
 static void	gnl_input(int n, char **line)
@@ -115,4 +88,31 @@ int			insert_input(char **line)
 		*line = tmp;
 	}
 	return (1);
+}
+
+char		**get_commands(char *cmd)
+{
+	int		i;
+	int		nothing;
+	char	*tmp;
+	char	**cmds;
+
+	i = -1;
+	nothing = 0;
+	cmds = ft_split(cmd, ';');
+	while (cmds[++i])
+	{
+		tmp = ft_strtrim(cmds[i], " ");
+		nothing = (!tmp || !(*tmp)) ? 1 : 0;
+		free(cmds[i]);
+		!nothing ? cmds[i] = tmp : 0;
+	}
+	if (nothing || check_semicolon(cmd))
+	{
+		free(cmds);
+		ft_putendl_fd("syntax error near unexpected token `;'", 2);
+		return (0);
+	}
+	free(cmd);
+	return (cmds);
 }

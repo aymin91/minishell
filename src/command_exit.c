@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 23:33:48 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:32:07 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 16:44:21 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,9 @@
 
 static int	check_digit_str(char *str)
 {
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
+	if (ft_atoi(str))
+		return (1);
+	return (0);
 }
 
 void		command_exit(char **command)

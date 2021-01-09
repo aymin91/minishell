@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 18:54:54 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 16:37:58 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list		*set_envp(int argc, char **argv, char **envp)
+void		set_envp(int argc, char **argv, char **envp, t_list **envs)
 {
 	int		i;
 	t_env	*env;
-	t_list	*envs;
 
 	(void)argc;
 	(void)argv;
@@ -28,10 +27,9 @@ t_list		*set_envp(int argc, char **argv, char **envp)
 		i = ft_strchr(*envp, '=') - *envp;
 		env->key = ft_substr(*envp, 0, i);
 		env->value = ft_substr(*envp, i + 1, ft_strlen(*envp) - i - 1);
-		ft_lstadd_back(&envs, ft_lstnew(env));
+		ft_lstadd_back(envs, ft_lstnew(env));
 		envp++;
 	}
-	return (envs);
 }
 
 int			main(int argc, char **argv, char **envp)
@@ -42,7 +40,7 @@ int			main(int argc, char **argv, char **envp)
 	t_list	*envs;
 
 	g_envp = envp;
-	envs = set_envp(argc, argv, envp);
+	set_envp(argc, argv, envp, &envs);
 	line = 0;
 	while (1)
 	{
