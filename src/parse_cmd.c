@@ -6,47 +6,13 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:58 by amin              #+#    #+#             */
-/*   Updated: 2021/01/09 19:24:28 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 19:44:09 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_content(void *content)
-{
-	free(content);
-}
-
-char **list_to_2d_char(t_list *list)
-{
-	char **ret;
-	int size;
-	int i;
-	t_list *tmp;
-
-	i = 0;
-	tmp = list;
-	size = ft_lstsize(list);
-	ret = (char**)malloc(sizeof(char*) * (size + 1));
-	ret[size] = 0;
-	while (list)
-	{
-		ret[i++] = ft_strdup(list->content);
-		list = list->next;
-	}
-	ft_lstclear(&tmp, free_content);
-	return (ret);
-}
-
-void push_last_ele(t_list **list, char *str)
-{
-	if (*str)
-		ft_lstadd_back(list, ft_lstnew(str));
-	else
-		free(str);
-}
-
-void update(char a, char *b)
+static void	update(char a, char *b)
 {
 	if (*b == -1)
 		*b = a;
@@ -54,20 +20,11 @@ void update(char a, char *b)
 		*b = -1;
 }
 
-char *trim_spaces(char *str)
+char		**split_commands(char *str)
 {
-	char *ret;
-
-	ret = ft_strtrim(str, " ");
-	free(str);
-	return (ret);
-}
-
-char **split_commands(char *str)
-{
-	t_list *list;
-	char quote;
-	char *start;
+	t_list	*list;
+	char	quote;
+	char	*start;
 
 	list = 0;
 	start = str;
@@ -78,7 +35,8 @@ char **split_commands(char *str)
 			update(*str, &quote);
 		else if (quote == -1 && *str == ';')
 		{
-			ft_lstadd_back(&list, ft_lstnew(trim_spaces(ft_substr(start, 0, str - start))));
+			ft_lstadd_back(&list,
+			ft_lstnew(trim_spaces(ft_substr(start, 0, str - start))));
 			start = str + 1;
 		}
 		++str;

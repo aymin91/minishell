@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:07:44 by amin              #+#    #+#             */
-/*   Updated: 2021/01/09 16:15:08 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 19:41:59 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ void				ft_lstclear(t_list **lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 void (*del)(void *));
-int					enclosedWithPairOfQuote(char *str);
+int					is_enclosed_with_quotes(char *str);
+void				free_content(void *content);
+char				**list_to_2d_char(t_list *list);
+void				push_last_ele(t_list **list, char *str);
+char				*trim_spaces(char *str);
 
 #endif
