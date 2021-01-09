@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 15:42:53 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 18:59:20 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 17:30:00 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char			*parse_env(char *res, t_list *envs)
 				continue;
 			}
 			str[0] = ft_substr(res, start_point, i - start_point + 1);
-			str[1] = amin(str[0], envs);
+			str[1] = ft_strdup(find_value(str[0], envs));
 			str[2] = ft_strjoin(str[3], str[1]);
 			freeamin(str);
 			str[3] = str[2];
@@ -112,5 +112,5 @@ char			*parse_quote(char *res, t_list *envs)
 			init_quote(&q);
 		}
 	}
-	return (str[0]);
+	return (str[2]);
 }
