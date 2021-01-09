@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:09:43 by amin              #+#    #+#             */
-/*   Updated: 2021/01/09 17:29:46 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/08 16:43:11 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char		*specify_cmd(char *str, t_list *envs)
 	res = 0;
 	if (isin_quote(str))
 		res = parse_quote(str, envs);
-	else if (isin_env(str))
+	if (isin_env(str))
 		res = parse_env(str, envs);
 	free(str);
 	return (res);
