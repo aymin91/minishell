@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:58 by amin              #+#    #+#             */
-/*   Updated: 2021/01/09 19:44:09 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 15:15:57 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,6 @@ char		**split_commands(char *str)
 	}
 	push_last_ele(&list, trim_spaces(ft_substr(start, 0, str - start)));
 	return (list_to_2d_char(list));
-}
-
-char		**get_commands(char *cmd)
-{
-	int		i;
-	int		nothing;
-	char	**cmds;
-
-	i = -1;
-	nothing = 0;
-	cmds = split_commands(cmd);
-	free(cmd);
-	while (cmds[++i])
-	{
-		if (!(*cmds[i]))
-		{
-			ft_freearr(cmds);
-			ft_putendl_fd("syntax error near unexpected token `;'", 2);
-			return (0);
-		}
-	}
-	return (cmds);
 }
 
 static void	gnl_input(int n, char **line)
@@ -119,4 +97,31 @@ int			insert_input(char **line)
 		*line = tmp;
 	}
 	return (1);
+}
+
+char		**get_commands(char *cmd)
+{
+	int		i;
+	int		nothing;
+	char	*tmp;
+	char	**cmds;
+
+	i = -1;
+	nothing = 0;
+	cmds = ft_split(cmd, ';');
+	while (cmds[++i])
+	{
+		tmp = ft_strtrim(cmds[i], " ");
+		nothing = (!tmp || !(*tmp)) ? 1 : 0;
+		free(cmds[i]);
+		!nothing ? cmds[i] = tmp : 0;
+	}
+	if (nothing || check_semicolon(cmd))
+	{
+		free(cmds);
+		ft_putendl_fd("syntax error near unexpected token `;'", 2);
+		return (0);
+	}
+	free(cmd);
+	return (cmds);
 }
