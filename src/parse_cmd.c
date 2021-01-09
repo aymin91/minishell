@@ -12,28 +12,37 @@
 
 #include "minishell.h"
 
-static int	check_semicolon(const char *cmd)
+static void	update(char a, char *b)
 {
-	int		i;
-	char	*tmp;
+	if (*b == -1)
+		*b = a;
+	else if (*b == a)
+		*b = -1;
+}
 
-	i = -1;
-	tmp = ft_strtrim(cmd, " ");
-	if (tmp[0] == ';')
+char		**split_commands(char *str)
+{
+	t_list	*list;
+	char	quote;
+	char	*start;
+
+	list = 0;
+	start = str;
+	quote = -1;
+	while (*str)
 	{
-		free(tmp);
-		return (1);
-	}
-	while (tmp[++i])
-	{
-		if (tmp[i] == ';' && tmp[i + 1] == ';')
+		if (*str == S_QUOTE || *str == D_QUOTE)
+			update(*str, &quote);
+		else if (quote == -1 && *str == ';')
 		{
-			free(tmp);
-			return (1);
+			ft_lstadd_back(&list,
+			ft_lstnew(trim_spaces(ft_substr(start, 0, str - start))));
+			start = str + 1;
 		}
+		++str;
 	}
-	free(tmp);
-	return (0);
+	push_last_ele(&list, trim_spaces(ft_substr(start, 0, str - start)));
+	return (list_to_2d_char(list));
 }
 
 static void	gnl_input(int n, char **line)

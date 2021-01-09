@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:36 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:24:38 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/09 19:43:40 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,18 @@ void		add_declear_env(char **tmp_env)
 		tmp_env[i] = tmp;
 		i++;
 	}
+}
+
+int			is_enclosed_with_quotes(char *str)
+{
+	int		len;
+	int		i;
+
+	i = 0;
+	len = ft_strlen(str);
+	while (str[i] != '\'' && str[i] != '\"')
+		++i;
+	if (i != len - 1 && str[i] == str[len - 1])
+		return (1);
+	return (0);
 }
