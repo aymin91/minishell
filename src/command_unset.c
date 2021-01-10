@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   command_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 18:55:45 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:30:26 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/10 21:46:10 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void		free_element(t_list *element)
+{
+	free(((t_env *)element->content)->key);
+	free(((t_env *)element->content)->value);
+	free(element->content);
+	free(element);
+}
 
 static void		erase_key(char *command, t_list *envs)
 {
@@ -18,18 +26,16 @@ static void		erase_key(char *command, t_list *envs)
 	t_list		*next;
 
 	current = envs;
+	next = envs->next;
 	while (current->next)
 	{
-		if (isin_key(command, envs))
+		if (ft_strncmp(((t_env *)next->content)->key, command, ft_strlen(command)))
 		{
-			next = current->next;
 			current->next = next->next;
-			free(((t_env *)next->content)->key);
-			free(((t_env *)next->content)->value);
-			free(next->content);
-			free(next);
+			free_element(next);
 			return ;
 		}
+		next = next->next;
 		current = current->next;
 	}
 }
@@ -39,7 +45,8 @@ void			command_unset(char **command, t_list *envs)
 	command++;
 	while (*command)
 	{
-		erase_key(*command, envs);
+		if (*find_value(*command, envs))
+			erase_key(*command, envs);
 		command++;
 	}
 }
