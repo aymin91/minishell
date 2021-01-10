@@ -6,13 +6,13 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:35:05 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:26:35 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/10 22:20:41 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			run_bredir(t_redir *redir, t_list *envs)
+int			run_bredir(t_redir *redir, t_list **envs)
 {
 	int		fd;
 	char	*path;
@@ -24,7 +24,7 @@ int			run_bredir(t_redir *redir, t_list *envs)
 		": No such file or directory", 2);
 		return (EXIT_FAILURE);
 	}
-	if (!(path = find_path(redir->commands[0], envs)))
+	if (!(path = find_path(redir->commands[0], *envs)))
 		return (ft_puterr_fd(redir->commands[0], ": command not found", 2));
 	dup2(fd, STDIN_FILENO);
 	close(fd);
@@ -36,7 +36,7 @@ int			run_bredir(t_redir *redir, t_list *envs)
 	return (EXIT_SUCCESS);
 }
 
-int			run_dredir(t_redir *redir, t_list *envs)
+int			run_dredir(t_redir *redir, t_list **envs)
 {
 	int		fd;
 	char	*path;
@@ -49,7 +49,7 @@ int			run_dredir(t_redir *redir, t_list *envs)
 		": No such file or directory", 2);
 		return (EXIT_FAILURE);
 	}
-	if (!(path = find_path(redir->commands[0], envs)))
+	if (!(path = find_path(redir->commands[0], *envs)))
 		return (ft_puterr_fd(redir->commands[0], ": command not found", 2));
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
@@ -61,7 +61,7 @@ int			run_dredir(t_redir *redir, t_list *envs)
 	return (EXIT_SUCCESS);
 }
 
-int			run_redir(t_redir *redir, t_list *envs)
+int			run_redir(t_redir *redir, t_list **envs)
 {
 	int		fd;
 	char	*path;
@@ -72,7 +72,7 @@ int			run_redir(t_redir *redir, t_list *envs)
 		ft_puterr_fd(redir->argv[redir->argc - 1], ": No such or directory", 2);
 		return (EXIT_FAILURE);
 	}
-	if (!(path = find_path(redir->commands[0], envs)))
+	if (!(path = find_path(redir->commands[0], *envs)))
 		return (ft_puterr_fd(redir->commands[0], ": command not found", 2));
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
@@ -84,7 +84,7 @@ int			run_redir(t_redir *redir, t_list *envs)
 	return (EXIT_SUCCESS);
 }
 
-void		command_redir(t_redir *redir, t_list *envs)
+void		command_redir(t_redir *redir, t_list **envs)
 {
 	int		i;
 	int		res;

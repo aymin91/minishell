@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2021/01/09 16:37:58 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/10 22:22:14 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int			main(int argc, char **argv, char **envp)
 		i = -1;
 		while (commands[++i])
 		{
-			exe_commands(commands[i], envs);
+			exe_commands(commands[i], &envs);
 			free(commands[i]);
 		}
 		free(commands);

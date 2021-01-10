@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:08:59 by amin              #+#    #+#             */
-/*   Updated: 2021/01/09 19:41:59 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/10 22:25:26 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,23 @@ static int	exe_dollar(char *commands)
 	return (0);
 }
 
-int			exe_builtin(char *commands, t_list *envs)
+int			exe_builtin(char *commands, t_list **envs)
 {
 	char	**command;
 
-	command = split_command(commands, envs);
+	command = split_command(commands, *envs);
 	if (!ft_strncmp("echo", command[0], ft_strlen(command[0])))
 		command_echo(command);
 	else if (!ft_strncmp("cd", command[0], 2))
-		command_cd(command, envs);
+		command_cd(command, *envs);
 	else if (!ft_strncmp("pwd", command[0], 3))
 		command_pwd();
 	else if (!ft_strncmp("export", command[0], 6))
-		command_export(command, envs);
+		command_export(command, *envs);
 	else if (!ft_strncmp("unset", command[0], 5))
 		command_unset(command, envs);
 	else if (!ft_strncmp("env", command[0], 3))
-		command_env(command, envs);
+		command_env(command, *envs);
 	else if (!ft_strncmp("exit", command[0], 4))
 		command_exit(command);
 	else
@@ -85,12 +85,12 @@ void		exe_else(char *commands, t_list *envs)
 	g_exit = stat / 256;
 }
 
-void		exe_commands(char *commands, t_list *envs)
+void		exe_commands(char *commands, t_list **envs)
 {
 	if (isin_pipe(commands) && !is_enclosed_with_quotes(commands))
 		exe_pipe(commands, envs);
 	else if (isin_redir(commands) && !is_enclosed_with_quotes(commands))
 		exe_redir(commands, envs);
 	else if (!exe_dollar(commands) && !exe_builtin(commands, envs))
-		exe_else(commands, envs);
+		exe_else(commands, *envs);
 }
