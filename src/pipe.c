@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:38:19 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:28:14 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/10 22:26:01 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		parse_pipe(char **command, t_pipe *p, t_list *envs)
 	}
 }
 
-void		exe_zero_case(int ch_zero, int fd[2], t_list *envs, t_pipe p)
+void		exe_zero_case(int ch_zero, int fd[2], t_list **envs, t_pipe p)
 {
 	if (ch_zero == 0)
 	{
@@ -48,7 +48,7 @@ void		exe_zero_case(int ch_zero, int fd[2], t_list *envs, t_pipe p)
 	}
 }
 
-void		exe_one_case(int ch_one, int fd[2], t_list *envs, char *commands)
+void		exe_one_case(int ch_one, int fd[2], t_list **envs, char *commands)
 {
 	if (ch_one == 0)
 	{
@@ -60,14 +60,14 @@ void		exe_one_case(int ch_one, int fd[2], t_list *envs, char *commands)
 	}
 }
 
-void		exe_pipe(char *commands, t_list *envs)
+void		exe_pipe(char *commands, t_list **envs)
 {
 	int		fd[2];
 	int		child[2];
 	int		stat[2];
 	t_pipe	p;
 
-	parse_pipe(&commands, &p, envs);
+	parse_pipe(&commands, &p, *envs);
 	pipe(fd);
 	child[0] = fork();
 	exe_zero_case(child[0], fd, envs, p);

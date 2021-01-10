@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 19:00:07 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/10 22:25:05 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void			command_env(char **command, t_list *envs);
 void			command_exit(char **command);
 void			command_export(char **command, t_list *envs);
 void			command_pwd(void);
-void			command_redir(t_redir *redir, t_list *envs);
-void			command_unset(char **command, t_list *envs);
-int				exe_builtin(char *commands, t_list *envs);
+void			command_redir(t_redir *redir, t_list **envs);
+void			command_unset(char **command, t_list **envs);
+int				exe_builtin(char *commands, t_list **envs);
 void			exe_else(char *commands, t_list *envs);
-void			exe_commands(char *commands, t_list *envs);
+void			exe_commands(char *commands, t_list **envs);
 int				get_next_line(int fd, char **line);
 size_t			ft_strlen(char const *s);
 char			*ft_strdup(char const *s1);
@@ -87,15 +87,15 @@ void			init_quote(t_quote *q);
 char			*parse_env(char *res, t_list *envs);
 char			*parse_quote(char *res, t_list *envs);
 void			parse_pipe(char **command, t_pipe *p, t_list *envs);
-void			exe_zero_case(int ch_zero, int fd[2], t_list *envs, t_pipe p);
-void			exe_one_case(int ch_one, int fd[2], t_list *envs,
+void			exe_zero_case(int ch_zero, int fd[2], t_list **envs, t_pipe p);
+void			exe_one_case(int ch_one, int fd[2], t_list **envs,
 char *commands);
-void			exe_pipe(char *commands, t_list *envs);
+void			exe_pipe(char *commands, t_list **envs);
 void			init_redir(char *commands, t_redir *redir);
 int				parse_redir2(t_redir *redir, int j);
 int				parse_redir1(char *commands, t_redir *redir);
 void			open_file(t_redir *redir);
-void			exe_redir(char *commands, t_list *envs);
+void			exe_redir(char *commands, t_list **envs);
 void			signal_handling(int sig);
 char			*specify_cmd(char *str, t_list *envs);
 char			**split_command(char *command, t_list *envs);

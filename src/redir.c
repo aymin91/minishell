@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:20:20 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:30:12 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/10 22:27:03 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		open_file(t_redir *redir)
 	close(fd);
 }
 
-void		exe_redir(char *commands, t_list *envs)
+void		exe_redir(char *commands, t_list **envs)
 {
 	int		i;
 	int		res;
@@ -105,7 +105,7 @@ void		exe_redir(char *commands, t_list *envs)
 	while (redir.commands[++i])
 	{
 		if (isin_quote(redir.commands[i]))
-			redir.commands[i] = specify_cmd(redir.commands[i], envs);
+			redir.commands[i] = specify_cmd(redir.commands[i], *envs);
 	}
 	open_file(&redir);
 	command_redir(&redir, envs);

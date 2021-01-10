@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:19:10 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:29:11 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/10 20:58:49 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void		command_export(char **command, t_list *envs)
 	command++;
 	while (*command)
 	{
-		if (check_export(*command))
+		if (!check_export(*command))
 		{
 			ft_putstr_fd("export: '", 1);
 			ft_putstr_fd(*command, 1);
