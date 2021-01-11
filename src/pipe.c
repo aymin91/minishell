@@ -3,35 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:38:19 by amin              #+#    #+#             */
-/*   Updated: 2021/01/10 22:26:01 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/12 00:33:51 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		parse_pipe(char **command, t_pipe *p, t_list *envs)
+static void	func1(char **command, int i, t_quote *q)
+{
+	while ((*command)[++i])
+	{
+		if ((*command)[++i] == '\"')
+		{
+			q->type = D_QUOTE;
+			q->start = i;
+		}
+	}
+	while ((*command)[++i])
+	{
+		if ((*command)[++i] == '\"')
+			q->end = i;
+	}
+}
+
+void		parse_pipe(char **command, t_pipe *p, t_list *envs, t_quote *q)
 {
 	int		i;
 	char	*str1;
 	char	*str2;
 
 	i = -1;
+	func1(command, i, q);
 	while ((*command)[++i])
 	{
 		if ((*command)[i] == '|')
 		{
-			str1 = ft_substr(*command, 0, i);
-			p->line = ft_strtrim(str1, " ");
-			free(str1);
-			str1 = ft_substr(*command, i + 1, ft_strlen(*command) - i);
-			str2 = ft_strtrim(str1, " ");
-			free(str1);
-			*command = str2;
-			p->cmds = split_command(p->line, envs);
-			return ;
+			if (!(q->start < i && i < q->end))
+			{
+				str1 = ft_substr(*command, 0, i);
+				p->line = ft_strtrim(str1, " ");
+				free(str1);
+				str1 = ft_substr(*command, i + 1, ft_strlen(*command) - i);
+				str2 = ft_strtrim(str1, " ");
+				free(str1);
+				*command = str2;
+				p->cmds = split_command(p->line, envs);
+				return ;
+			}
 		}
 	}
 }
@@ -66,8 +87,10 @@ void		exe_pipe(char *commands, t_list **envs)
 	int		child[2];
 	int		stat[2];
 	t_pipe	p;
+	t_quote	q;
 
-	parse_pipe(&commands, &p, *envs);
+	init_quote(&q);
+	parse_pipe(&commands, &p, *envs, &q);
 	pipe(fd);
 	child[0] = fork();
 	exe_zero_case(child[0], fd, envs, p);
