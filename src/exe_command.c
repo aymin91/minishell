@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:08:59 by amin              #+#    #+#             */
-/*   Updated: 2021/01/10 22:25:26 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/11 20:36:01 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			exe_builtin(char *commands, t_list **envs)
 	char	**command;
 
 	command = split_command(commands, *envs);
-	if (!ft_strncmp("echo", command[0], ft_strlen(command[0])))
+	if (!ft_strncmp("echo", command[0], 4))
 		command_echo(command);
 	else if (!ft_strncmp("cd", command[0], 2))
 		command_cd(command, *envs);
