@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:38:19 by amin              #+#    #+#             */
-/*   Updated: 2021/01/10 22:26:01 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/11 21:03:37 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	check_right_pipe(char **command, int i)
+{
+	while ((*command)[++i])
+	{
+		if ((*command)[i] == '\"' || (*command)[i] == '\'')
+			return (0);
+	}
+	return (1);
+}
 
 void		parse_pipe(char **command, t_pipe *p, t_list *envs)
 {
@@ -21,7 +31,7 @@ void		parse_pipe(char **command, t_pipe *p, t_list *envs)
 	i = -1;
 	while ((*command)[++i])
 	{
-		if ((*command)[i] == '|')
+		if ((*command)[i] == '|' && check_right_pipe(command, i))
 		{
 			str1 = ft_substr(*command, 0, i);
 			p->line = ft_strtrim(str1, " ");
