@@ -3,40 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:38:19 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 17:28:14 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/13 00:23:34 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		parse_pipe(char **command, t_pipe *p, t_list *envs)
+void		parse_pipe(char **command, t_pipe *p, t_list *envs, t_quote *q)
 {
 	int		i;
 	char	*str1;
 	char	*str2;
 
 	i = -1;
+	func1(command, i, q);
 	while ((*command)[++i])
 	{
 		if ((*command)[i] == '|')
 		{
-			str1 = ft_substr(*command, 0, i);
-			p->line = ft_strtrim(str1, " ");
-			free(str1);
-			str1 = ft_substr(*command, i + 1, ft_strlen(*command) - i);
-			str2 = ft_strtrim(str1, " ");
-			free(str1);
-			*command = str2;
-			p->cmds = split_command(p->line, envs);
-			return ;
+			if (!(q->start < i && i < q->end))
+			{
+				str1 = ft_substr(*command, 0, i);
+				p->line = ft_strtrim(str1, " ");
+				free(str1);
+				str1 = ft_substr(*command, i + 1, ft_strlen(*command) - i);
+				str2 = ft_strtrim(str1, " ");
+				free(str1);
+				*command = str2;
+				p->cmds = split_command(p->line, envs);
+				return ;
+			}
 		}
 	}
 }
 
-void		exe_zero_case(int ch_zero, int fd[2], t_list *envs, t_pipe p)
+void		exe_zero_case(int ch_zero, int fd[2], t_list **envs, t_pipe p)
 {
 	if (ch_zero == 0)
 	{
@@ -48,7 +52,7 @@ void		exe_zero_case(int ch_zero, int fd[2], t_list *envs, t_pipe p)
 	}
 }
 
-void		exe_one_case(int ch_one, int fd[2], t_list *envs, char *commands)
+void		exe_one_case(int ch_one, int fd[2], t_list **envs, char *commands)
 {
 	if (ch_one == 0)
 	{
@@ -60,14 +64,16 @@ void		exe_one_case(int ch_one, int fd[2], t_list *envs, char *commands)
 	}
 }
 
-void		exe_pipe(char *commands, t_list *envs)
+void		exe_pipe(char *commands, t_list **envs)
 {
 	int		fd[2];
 	int		child[2];
 	int		stat[2];
 	t_pipe	p;
+	t_quote	q;
 
-	parse_pipe(&commands, &p, envs);
+	init_quote(&q);
+	parse_pipe(&commands, &p, *envs, &q);
 	pipe(fd);
 	child[0] = fork();
 	exe_zero_case(child[0], fd, envs, p);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:36 by amin              #+#    #+#             */
-/*   Updated: 2021/01/09 19:43:40 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/11 12:26:23 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int			is_enclosed_with_quotes(char *str)
 
 	i = 0;
 	len = ft_strlen(str);
-	while (str[i] != '\'' && str[i] != '\"')
+	while (i < len && str[i] != '\'' && str[i] != '\"')
 		++i;
 	if (i != len - 1 && str[i] == str[len - 1])
 		return (1);

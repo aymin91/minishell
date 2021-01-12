@@ -52,7 +52,7 @@ int			main(int argc, char **argv, char **envp)
 		i = -1;
 		while (commands[++i])
 		{
-			exe_commands(commands[i], envs);
+			exe_commands(commands[i], &envs);
 			free(commands[i]);
 		}
 		free(commands);
