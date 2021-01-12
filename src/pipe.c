@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:38:19 by amin              #+#    #+#             */
-/*   Updated: 2021/01/12 00:33:51 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/12 21:11:33 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@ static void	func1(char **command, int i, t_quote *q)
 {
 	while ((*command)[++i])
 	{
-		if ((*command)[++i] == '\"')
+		if ((*command)[i] == '\"')
 		{
-			q->type = D_QUOTE;
+			q->type =  D_QUOTE;
+			q->start = i;
+		}
+		if ((*command)[i] == '\'')
+		{
+			q->type = S_QUOTE;
 			q->start = i;
 		}
 	}
 	while ((*command)[++i])
 	{
-		if ((*command)[++i] == '\"')
+		if ((*command)[i] == '\"')
 			q->end = i;
 	}
 }
