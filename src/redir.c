@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:20:20 by amin              #+#    #+#             */
-/*   Updated: 2021/01/10 22:27:03 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/12 23:47:28 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			parse_redir2(t_redir *redir, int j)
 	return (1);
 }
 
-int			parse_redir1(char *commands, t_redir *redir)
+int			parse_redir1(char *commands, t_redir *redir, t_quote *q)
 {
 	int		i;
 	int		j;
@@ -48,19 +48,23 @@ int			parse_redir1(char *commands, t_redir *redir)
 	i = -1;
 	j = 0;
 	start = 0;
+	func1(&commands, i, q);
 	while (commands[++i])
 	{
 		if (ft_strchr("><", commands[i]))
 		{
-			if (j > 0 && ((redir->type[0] == BREDIR && commands[i] != '<') ||
-			(redir->type[0] != BREDIR && commands[i] == '<')))
-				return (0);
-			redir->argv[j] = sub_trim(commands, start, i - start, " ");
-			if (j == 0)
-				redir->commands = ft_split(redir->argv[j], ' ');
-			redir->type[j] = check_redir_type(commands, i);
-			redir->type[j++] == DREDIR ? i++ : 0;
-			start = i + 1;
+			if (!(q->start < i && i < q->end))
+			{
+				if (j > 0 && ((redir->type[0] == BREDIR && commands[i] != '<') ||
+				(redir->type[0] != BREDIR && commands[i] == '<')))
+					return (0);
+				redir->argv[j] = sub_trim(commands, start, i - start, " ");
+				if (j == 0)
+					redir->commands = ft_split(redir->argv[j], ' ');
+				redir->type[j] = check_redir_type(commands, i);
+				redir->type[j++] == DREDIR ? i++ : 0;
+				start = i + 1;
+			}
 		}
 	}
 	redir->argv[j] = sub_trim(commands, start, i - start, " ");
@@ -93,9 +97,10 @@ void		exe_redir(char *commands, t_list **envs)
 	int		i;
 	int		res;
 	t_redir	redir;
+	t_quote	q;
 
 	init_redir(commands, &redir);
-	if ((res = parse_redir1(commands, &redir)) <= 0)
+	if ((res = parse_redir1(commands, &redir, &q)) <= 0)
 	{
 		if (res < 0)
 			ft_putendl_fd("syntax error near unexpected token 'newline'", 1);

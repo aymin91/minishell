@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/10 22:25:05 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/12 21:43:58 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ int				insert_input(char **line);
 void			init_quote(t_quote *q);
 char			*parse_env(char *res, t_list *envs);
 char			*parse_quote(char *res, t_list *envs);
-void			parse_pipe(char **command, t_pipe *p, t_list *envs);
+void			parse_pipe(char **command, t_pipe *p, t_list *envs, t_quote *q);
 void			exe_zero_case(int ch_zero, int fd[2], t_list **envs, t_pipe p);
 void			exe_one_case(int ch_one, int fd[2], t_list **envs,
 char *commands);
 void			exe_pipe(char *commands, t_list **envs);
 void			init_redir(char *commands, t_redir *redir);
 int				parse_redir2(t_redir *redir, int j);
-int				parse_redir1(char *commands, t_redir *redir);
+int				parse_redir1(char *commands, t_redir *redir, t_quote *q);
 void			open_file(t_redir *redir);
 void			exe_redir(char *commands, t_list **envs);
 void			signal_handling(int sig);
@@ -117,5 +117,8 @@ int				ft_puterr_fd(char *s1, char *s2, int fd);
 void			add_declear_env(char **tmp_env);
 char			*amin(char *str, t_list *envs);
 void			freeamin(char **str);
+void			check_quote(char *str, int i, t_quote *q);
+void			check_end(char *str, int i, t_quote *q);
+void			func1(char **command, int i, t_quote *q);
 
 #endif
