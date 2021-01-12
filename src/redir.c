@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:20:20 by amin              #+#    #+#             */
-/*   Updated: 2021/01/13 00:34:59 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/13 01:28:54 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			parse_redir1(char *cmds, t_redir *redir, t_quote *q)
 	g_i = -1;
 	g_j = 0;
 	g_start = 0;
-	func1(&cmds, g_i, q);
+	check_right_start_quote(&cmds, g_i, q);
 	while (cmds[++g_i])
 	{
 		if (ft_strchr("><", cmds[g_i]))
