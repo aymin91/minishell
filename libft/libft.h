@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:07:44 by amin              #+#    #+#             */
-/*   Updated: 2021/01/09 20:06:00 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/12 23:43:03 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ char				**list_to_2d_char(t_list *list);
 void				push_last_ele(t_list **list, char *str);
 char				*trim_spaces(char *str);
 int					is_valid_quote_pairs(char *str);
+int					parse_backslash_in_dquote(char **src, t_list *envs);
 
 #endif

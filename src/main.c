@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2021/01/12 00:32:31 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/11 23:19:31 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int			main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		write(1, ">", 1);
-		if (!insert_input(&line))
-			continue;
-		if ((commands = get_commands(line)) == NULL)
+		if (!insert_input(&line) ||
+		!is_single_line_command(line) ||
+		(commands = get_commands(line)) == NULL)
 			continue;
 		i = -1;
 		while (commands[++i])

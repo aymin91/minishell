@@ -6,17 +6,17 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:58 by amin              #+#    #+#             */
-/*   Updated: 2021/01/09 19:44:09 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/13 01:08:30 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	update(char a, char *b)
+static void	update(char a, char prev, char *b)
 {
 	if (*b == -1)
 		*b = a;
-	else if (*b == a)
+	else if (*b == a && !(a == D_QUOTE && prev == '\\'))
 		*b = -1;
 }
 
@@ -32,7 +32,7 @@ char		**split_commands(char *str)
 	while (*str)
 	{
 		if (*str == S_QUOTE || *str == D_QUOTE)
-			update(*str, &quote);
+			update(*str, *(str - 1), &quote);
 		else if (quote == -1 && *str == ';')
 		{
 			ft_lstadd_back(&list,

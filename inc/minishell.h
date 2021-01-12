@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/13 00:32:40 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/11 23:20:11 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int				ft_puterr_fd(char *s1, char *s2, int fd);
 void			add_declear_env(char **tmp_env);
 char			*amin(char *str, t_list *envs);
 void			freeamin(char **str);
+int				is_single_line_command(char *cmd);
 void			check_quote(char *str, int i, t_quote *q);
 void			check_end(char *str, int i, t_quote *q);
 void			check_right_start_quote(char **command, int i, t_quote *q);

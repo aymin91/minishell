@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:22:36 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 19:01:56 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/13 01:03:16 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,28 @@ void				freeamin(char **str)
 	free(str[0]);
 	free(str[1]);
 	free(str[3]);
+}
+
+int					is_single_line_command(char *cmd)
+{
+	char	c;
+	int		i;
+
+	i = -1;
+	c = -1;
+	while (cmd[++i])
+		if (cmd[i] == S_QUOTE || cmd[i] == D_QUOTE)
+		{
+			if (c == -1)
+				c = cmd[i];
+			else if (c == cmd[i] && !(c == D_QUOTE && cmd[i - 1] == '\\'))
+				c = -1;
+		}
+	if (c != -1)
+	{
+		ft_putendl_fd("multiple line command not supported", 2);
+		free(cmd);
+		return (0);
+	}
+	return (1);
 }

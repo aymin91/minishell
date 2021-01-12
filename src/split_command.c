@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:09:43 by amin              #+#    #+#             */
-/*   Updated: 2021/01/13 00:25:58 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/12 23:42:48 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char		**split_command(char *command, t_list *envs)
 	i = -1;
 	while (token[++i])
 	{
+		if(token[i][0] == '\"' && parse_backslash_in_dquote(&token[i], envs))
+			continue;
 		if ((ft_strlen(token[i]) != 1)
 			&& (isin_quote(token[i]) || isin_env(token[i])))
 			token[i] = specify_cmd(token[i], envs);
