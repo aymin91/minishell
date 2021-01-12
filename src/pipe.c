@@ -54,7 +54,7 @@ void		parse_pipe(char **command, t_pipe *p, t_list *envs, t_quote *q)
 	func1(command, i, q);
 	while ((*command)[++i])
 	{
-		if ((*command)[i] == '|')
+		if ((*command)[i] == '|' && check_right_pipe(command, i))
 		{
 			if (!(q->start < i && i < q->end))
 			{
