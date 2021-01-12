@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:38:19 by amin              #+#    #+#             */
-/*   Updated: 2021/01/12 23:47:49 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/13 00:06:03 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		parse_pipe(char **command, t_pipe *p, t_list *envs, t_quote *q)
 	func1(command, i, q);
 	while ((*command)[++i])
 	{
-		if ((*command)[i] == '|' && check_right_pipe(command, i))
+		if ((*command)[i] == '|')
 		{
 			if (!(q->start < i && i < q->end))
 			{
