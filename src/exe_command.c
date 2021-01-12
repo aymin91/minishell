@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:08:59 by amin              #+#    #+#             */
-/*   Updated: 2021/01/12 00:34:50 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/12 22:37:31 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ void		exe_else(char *commands, t_list *envs)
 	path = find_path(command[0], envs);
 	if (!path)
 	{
-		ft_puterr_fd(command[0], ": 1command not found", 2);
+		ft_puterr_fd(command[0], ": command not found", 2);
 		return ;
 	}
 	child = fork();
 	if (child == 0)
 	{
 		if (execve(path, command, g_envp) == -1)
-			exit(ft_puterr_fd(command[0], ": 2commands not found", 2));
+			exit(ft_puterr_fd(command[0], ": commands not found", 2));
 		exit(EXIT_SUCCESS);
 	}
 	wait(&stat);
@@ -89,7 +89,7 @@ void		exe_commands(char *commands, t_list **envs)
 {
 	if (isin_pipe(commands))
 		exe_pipe(commands, envs);
-	else if (isin_redir(commands) && !is_enclosed_with_quotes(commands))
+	else if (isin_redir(commands) )
 		exe_redir(commands, envs);
 	else if (!exe_dollar(commands) && !exe_builtin(commands, envs))
 		exe_else(commands, *envs);

@@ -6,13 +6,13 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:38:19 by amin              #+#    #+#             */
-/*   Updated: 2021/01/12 21:11:33 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/12 23:47:49 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	func1(char **command, int i, t_quote *q)
+void		func1(char **command, int i, t_quote *q)
 {
 	while ((*command)[++i])
 	{
@@ -20,17 +20,27 @@ static void	func1(char **command, int i, t_quote *q)
 		{
 			q->type =  D_QUOTE;
 			q->start = i;
+			break;
 		}
-		if ((*command)[i] == '\'')
+		else if ((*command)[i] == '\'')
 		{
 			q->type = S_QUOTE;
 			q->start = i;
+			break;
 		}
 	}
 	while ((*command)[++i])
 	{
 		if ((*command)[i] == '\"')
+		{
 			q->end = i;
+			break;
+		}
+		else if ((*command)[i] == '\'')
+		{
+			q->end = i;
+			break;
+		}
 	}
 }
 
