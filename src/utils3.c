@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:22:36 by amin              #+#    #+#             */
-/*   Updated: 2021/01/11 23:19:48 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/13 01:03:16 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int					is_single_line_command(char *cmd)
 		{
 			if (c == -1)
 				c = cmd[i];
-			else if (c == cmd[i])
+			else if (c == cmd[i] && !(c == D_QUOTE && cmd[i - 1] == '\\'))
 				c = -1;
 		}
 	if (c != -1)
