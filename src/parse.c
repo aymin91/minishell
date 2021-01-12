@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 15:42:53 by amin              #+#    #+#             */
-/*   Updated: 2021/01/12 22:37:54 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/13 00:18:00 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			init_quote(t_quote *q)
 	q->end = -1;
 }
 
-void		check_end(char *str, int i, t_quote *q)
+void			check_end(char *str, int i, t_quote *q)
 {
 	if ((str[i] == '\'' && q->type == S_QUOTE) ||
 		(str[i] == '\"' && q->type == D_QUOTE))
@@ -33,7 +33,7 @@ void		check_end(char *str, int i, t_quote *q)
 	return ;
 }
 
-void		check_quote(char *str, int i, t_quote *q)
+void			check_quote(char *str, int i, t_quote *q)
 {
 	if (q->type == -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/12 21:43:58 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/13 00:32:40 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ typedef struct	s_redir
 
 char			**g_envp;
 int				g_exit;
+int				g_i;
+int				g_j;
+int				g_start;
 
 void			command_cd(char **commands, t_list *envs);
 void			command_echo(char **command);
@@ -119,6 +122,7 @@ char			*amin(char *str, t_list *envs);
 void			freeamin(char **str);
 void			check_quote(char *str, int i, t_quote *q);
 void			check_end(char *str, int i, t_quote *q);
-void			func1(char **command, int i, t_quote *q);
+void			check_right_start_quote(char **command, int i, t_quote *q);
+void			check_right_end_quote(char **command, int i, t_quote *q);
 
 #endif

@@ -6,43 +6,11 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:38:19 by amin              #+#    #+#             */
-/*   Updated: 2021/01/13 00:06:03 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/13 00:23:34 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void		func1(char **command, int i, t_quote *q)
-{
-	while ((*command)[++i])
-	{
-		if ((*command)[i] == '\"')
-		{
-			q->type =  D_QUOTE;
-			q->start = i;
-			break;
-		}
-		else if ((*command)[i] == '\'')
-		{
-			q->type = S_QUOTE;
-			q->start = i;
-			break;
-		}
-	}
-	while ((*command)[++i])
-	{
-		if ((*command)[i] == '\"')
-		{
-			q->end = i;
-			break;
-		}
-		else if ((*command)[i] == '\'')
-		{
-			q->end = i;
-			break;
-		}
-	}
-}
 
 void		parse_pipe(char **command, t_pipe *p, t_list *envs, t_quote *q)
 {

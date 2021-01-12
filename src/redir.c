@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:20:20 by amin              #+#    #+#             */
-/*   Updated: 2021/01/12 23:47:28 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/13 00:34:59 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,36 +39,32 @@ int			parse_redir2(t_redir *redir, int j)
 	return (1);
 }
 
-int			parse_redir1(char *commands, t_redir *redir, t_quote *q)
+int			parse_redir1(char *cmds, t_redir *redir, t_quote *q)
 {
-	int		i;
-	int		j;
-	int		start;
-
-	i = -1;
-	j = 0;
-	start = 0;
-	func1(&commands, i, q);
-	while (commands[++i])
+	g_i = -1;
+	g_j = 0;
+	g_start = 0;
+	func1(&cmds, g_i, q);
+	while (cmds[++g_i])
 	{
-		if (ft_strchr("><", commands[i]))
+		if (ft_strchr("><", cmds[g_i]))
 		{
-			if (!(q->start < i && i < q->end))
+			if (!(q->start < g_i && g_i < q->end))
 			{
-				if (j > 0 && ((redir->type[0] == BREDIR && commands[i] != '<') ||
-				(redir->type[0] != BREDIR && commands[i] == '<')))
+				if (g_j > 0 && ((redir->type[0] == BREDIR && cmds[g_i] != '<')
+				|| (redir->type[0] != BREDIR && cmds[g_i] == '<')))
 					return (0);
-				redir->argv[j] = sub_trim(commands, start, i - start, " ");
-				if (j == 0)
-					redir->commands = ft_split(redir->argv[j], ' ');
-				redir->type[j] = check_redir_type(commands, i);
-				redir->type[j++] == DREDIR ? i++ : 0;
-				start = i + 1;
+				redir->argv[g_j] = sub_trim(cmds, g_start, g_i - g_start, " ");
+				if (g_j == 0)
+					redir->commands = ft_split(redir->argv[g_j], ' ');
+				redir->type[g_j] = check_redir_type(cmds, g_i);
+				redir->type[g_j++] == DREDIR ? g_i++ : 0;
+				g_start = g_i + 1;
 			}
 		}
 	}
-	redir->argv[j] = sub_trim(commands, start, i - start, " ");
-	return (parse_redir2(redir, j));
+	redir->argv[g_j] = sub_trim(cmds, g_start, g_i - g_start, " ");
+	return (parse_redir2(redir, g_j));
 }
 
 void		open_file(t_redir *redir)

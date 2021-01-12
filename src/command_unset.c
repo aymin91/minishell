@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 18:55:45 by amin              #+#    #+#             */
-/*   Updated: 2021/01/10 22:21:37 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/13 00:17:21 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void		erase_key(char *command, t_list **envs)
 		}
 		prev = prev->next;
 		curr = curr->next;
-
 	}
 }
 

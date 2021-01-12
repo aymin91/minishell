@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:09:43 by amin              #+#    #+#             */
-/*   Updated: 2021/01/11 22:46:58 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/13 00:25:58 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		**split_command(char *command, t_list *envs)
 	{
 		if ((ft_strlen(token[i]) != 1)
 			&& (isin_quote(token[i]) || isin_env(token[i])))
-				token[i] = specify_cmd(token[i], envs);
+			token[i] = specify_cmd(token[i], envs);
 	}
 	return (token);
 }

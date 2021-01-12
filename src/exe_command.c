@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:08:59 by amin              #+#    #+#             */
-/*   Updated: 2021/01/12 22:37:31 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/13 00:17:41 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void		exe_commands(char *commands, t_list **envs)
 {
 	if (isin_pipe(commands))
 		exe_pipe(commands, envs);
-	else if (isin_redir(commands) )
+	else if (isin_redir(commands))
 		exe_redir(commands, envs);
 	else if (!exe_dollar(commands) && !exe_builtin(commands, envs))
 		exe_else(commands, *envs);
