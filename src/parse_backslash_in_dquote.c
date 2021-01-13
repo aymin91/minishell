@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_backslash_in_dquote.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 23:42:28 by gicho             #+#    #+#             */
-/*   Updated: 2021/01/13 00:57:34 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/13 19:39:39 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static void	append_char(char **dst, char c)
 
 static int	append_variable(char **dst, char *src, t_list *envs)
 {
-	char *value;
-	char *key;
-	int key_len;
-	int i;
+	char	*value;
+	char	*key;
+	int		key_len;
+	int		i;
 
 	key_len = 0;
 	while (src[key_len] && src[key_len] != ' ')

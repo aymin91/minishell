@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2021/01/11 23:19:31 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/13 16:23:24 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void		init_sig(void)
+{
+	signal(SIGINT, (void *)signal_handling);
+	signal(SIGQUIT, (void *)signal_handling);
+}
 
 void		set_envp(int argc, char **argv, char **envp, t_list **envs)
 {
@@ -40,6 +46,7 @@ int			main(int argc, char **argv, char **envp)
 	t_list	*envs;
 
 	g_envp = envp;
+	init_sig();
 	set_envp(argc, argv, envp, &envs);
 	line = 0;
 	while (1)
