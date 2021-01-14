@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:09:43 by amin              #+#    #+#             */
-/*   Updated: 2021/01/14 16:40:16 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/14 22:02:34 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char		*specify_cmd(char *str, t_list *envs)
 		res = parse_quote(str, envs);
 	else if (isin_env(str))
 		res = parse_env(str, envs);
-	free(str);
+	if (*str == '\"' || *str == '\'')
+		free(str);
 	return (res);
 }
 
