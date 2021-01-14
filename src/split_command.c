@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:09:43 by amin              #+#    #+#             */
-/*   Updated: 2021/01/14 15:52:01 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/14 16:40:16 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char		**split_command(char *command, t_list *envs)
 	int		i;
 	char	**token;
 
-	if (!(token = ft_split(command, ' ')))
+	if (!(token = tokenize_quoted_string(command, ' ')))
 		return (0);
 	i = -1;
 	while (token[++i])
