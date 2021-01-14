@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 15:42:53 by amin              #+#    #+#             */
-/*   Updated: 2021/01/14 21:40:10 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/14 22:29:43 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,27 @@ void			check_quote(char *str, int i, t_quote *q)
 
 char			*parse_env(char *res, t_list *envs)
 {
-	int			i;
 	int			start_point;
 	char		*str[4];
 
-	i = -1;
+	g_i = -1;
 	start_point = 0;
-	while (res[++i])
+	while (res[++g_i])
 	{
-		if (res[i] == '$' || res[i + 1] == '\0')
+		if (res[g_i] == '$' || res[g_i + 1] == '\0')
 		{
 			if (start_point == 0)
 			{
-				str[3] = ft_substr(res, start_point, i);
-				start_point = i + 1;
+				str[3] = ft_substr(res, start_point, g_i);
+				start_point = g_i + 1;
 				continue;
 			}
-			str[0] = ft_substr(res, start_point, i - start_point + 1);
+			str[0] = ft_substr(res, start_point, g_i - start_point + 1);
 			str[1] = amin(str[0], envs);
 			str[2] = ft_strjoin(str[3], str[1]);
 			freeamin(str);
 			str[3] = str[2];
-			start_point = i + 1;
+			start_point = g_i + 1;
 		}
 	}
 	free(res);
