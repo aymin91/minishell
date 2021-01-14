@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/11 23:20:11 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/14 16:35:53 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ void			check_quote(char *str, int i, t_quote *q);
 void			check_end(char *str, int i, t_quote *q);
 void			check_right_start_quote(char **command, int i, t_quote *q);
 void			check_right_end_quote(char **command, int i, t_quote *q);
+char			**tokenize_quoted_string(char *str, char separator);
 
 #endif

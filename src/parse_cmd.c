@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:58 by amin              #+#    #+#             */
-/*   Updated: 2021/01/13 01:08:30 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/14 16:36:19 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	update(char a, char prev, char *b)
 		*b = -1;
 }
 
-char		**split_commands(char *str)
+char		**tokenize_quoted_string(char *str, char separator)
 {
 	t_list	*list;
 	char	quote;
@@ -33,7 +33,7 @@ char		**split_commands(char *str)
 	{
 		if (*str == S_QUOTE || *str == D_QUOTE)
 			update(*str, *(str - 1), &quote);
-		else if (quote == -1 && *str == ';')
+		else if (quote == -1 && *str == separator)
 		{
 			ft_lstadd_back(&list,
 			ft_lstnew(trim_spaces(ft_substr(start, 0, str - start))));
@@ -53,7 +53,7 @@ char		**get_commands(char *cmd)
 
 	i = -1;
 	nothing = 0;
-	cmds = split_commands(cmd);
+	cmds = tokenize_quoted_string(cmd, ';');
 	free(cmd);
 	while (cmds[++i])
 	{
