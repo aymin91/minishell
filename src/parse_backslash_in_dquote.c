@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_backslash_in_dquote.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 23:42:28 by gicho             #+#    #+#             */
-/*   Updated: 2021/01/13 19:39:39 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/14 16:03:33 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ static int	append_variable(char **dst, char *src, t_list *envs)
 	return (key_len);
 }
 
-int			parse_backslash_in_dquote(char **src, t_list *envs)
+void		parse_backslash_in_dquote(char **src, t_list *envs)
 {
 	char	*tmp;
 	int		i;
 
 	i = -1;
 	tmp = ft_substr(*src, 1, ft_strlen(*src) - 2);
+	free(*src);
 	*src = (char*)malloc(1);
 	**src = 0;
 	while (tmp[++i])
@@ -66,5 +67,4 @@ int			parse_backslash_in_dquote(char **src, t_list *envs)
 		append_char(src, tmp[i]);
 	}
 	free(tmp);
-	return (1);
 }
