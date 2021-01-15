@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:20:20 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 00:00:28 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/16 00:40:09 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void		exe_redir(char *commands, t_list **envs)
 	init_redir(commands, &redir);
 	if ((syn = check_redir_syntax(commands)) <= 0)
 	{
-		print_redir_syn(syn);
+		print_redir_syn(syn, &redir);
 		return ;
 	}
 	if ((res = parse_redir1(commands, &redir, &q)) <= 0)
