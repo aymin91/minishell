@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:08:59 by amin              #+#    #+#             */
-/*   Updated: 2021/01/13 00:17:41 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/15 17:32:44 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ int			exe_builtin(char *commands, t_list **envs)
 	char	**command;
 
 	command = split_command(commands, *envs);
-	if (!ft_strncmp("echo", command[0], 4))
+	if (!ft_strcmp("echo", command[0]))
 		command_echo(command);
-	else if (!ft_strncmp("cd", command[0], 2))
-		command_cd(command, *envs);
-	else if (!ft_strncmp("pwd", command[0], 3))
+	else if (!ft_strcmp("cd", command[0]))
+		printf("cd %s\n", commands);
+	else if (!ft_strcmp("pwd", command[0]))
 		command_pwd();
-	else if (!ft_strncmp("export", command[0], 6))
+	else if (!ft_strcmp("export", command[0]))
 		command_export(command, *envs);
-	else if (!ft_strncmp("unset", command[0], 5))
+	else if (!ft_strcmp("unset", command[0]))
 		command_unset(command, envs);
-	else if (!ft_strncmp("env", command[0], 3))
+	else if (!ft_strcmp("env", command[0]))
 		command_env(command, *envs);
-	else if (!ft_strncmp("exit", command[0], 4))
+	else if (!ft_strcmp("exit", command[0]))
 		command_exit(command);
 	else
 	{
