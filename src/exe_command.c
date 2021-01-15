@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:08:59 by amin              #+#    #+#             */
-/*   Updated: 2021/01/15 17:32:44 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/15 18:05:26 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			exe_builtin(char *commands, t_list **envs)
 	if (!ft_strcmp("echo", command[0]))
 		command_echo(command);
 	else if (!ft_strcmp("cd", command[0]))
-		printf("cd %s\n", commands);
+		command_cd(command, *envs);
 	else if (!ft_strcmp("pwd", command[0]))
 		command_pwd();
 	else if (!ft_strcmp("export", command[0]))
