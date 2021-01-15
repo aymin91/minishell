@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:09:43 by amin              #+#    #+#             */
-/*   Updated: 2021/01/14 22:02:34 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/15 22:10:41 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char		**split_command(char *command, t_list *envs)
 	int		i;
 	char	**token;
 
-	if (!(token = tokenize_quoted_string(command, ' ')))
+	if (!(token = remove_empty_str(tokenize_quoted_string(command, ' '))))
 		return (0);
 	i = -1;
 	while (token[++i])
