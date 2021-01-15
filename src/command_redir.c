@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:35:05 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 00:39:51 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/16 00:45:28 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,4 @@ void		command_redir(t_redir *redir, t_list **envs)
 	wait(&stat);
 	g_exit = stat / 256;
 	free_redir(redir);
-	//free(redir->type);
-	//ft_freearr(redir->argv);
-	//ft_freearr(redir->commands);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_empty_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 21:57:02 by gicho             #+#    #+#             */
-/*   Updated: 2021/01/15 22:10:04 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/16 00:47:34 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		count_not_empty_str(char **strs)
 	int	cnt;
 
 	cnt = 0;
-	while(*strs)
+	while (*strs)
 		if (**(strs++))
 			++cnt;
 	return (cnt);
@@ -34,7 +34,7 @@ char	**remove_empty_str(char **strs)
 	j = 0;
 	while (strs[++i])
 	{
-		if(*(strs[i]))
+		if (*(strs[i]))
 			ret[j++] = strs[i];
 		else
 			free(strs[i]);
