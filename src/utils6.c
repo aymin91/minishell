@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:20:15 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 00:00:17 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/16 00:40:23 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,19 @@ int			check_redir_syntax(char *commands)
 	return (1);
 }
 
-void		print_redir_syn(int syn)
+void		print_redir_syn(int syn, t_redir *redir)
 {
 	if (syn == -1)
 		ft_putendl_fd("syntax error near unexpected token `<'", 1);
 	else if (syn == -2)
 		ft_putendl_fd("syntax error near unexpected token `>'", 1);
+	free_redir(redir);
+	return ;
+}
+
+void		free_redir(t_redir *redir)
+{
+	free(redir->type);
+	ft_freearr(redir->argv);
+	ft_freearr(redir->commands);
 }

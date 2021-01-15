@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 00:00:11 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/16 00:40:35 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void			check_right_end_quote(char **command, int i, t_quote *q);
 char			**tokenize_quoted_string(char *str, char separator);
 char			**remove_empty_str(char **strs);
 int				check_redir_syntax(char *commands);
-void			print_redir_syn(int syn);
+void			print_redir_syn(int syn, t_redir *redir);
+void			free_redir(t_redir *redir);
 
 #endif
