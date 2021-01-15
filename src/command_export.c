@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:19:10 by amin              #+#    #+#             */
-/*   Updated: 2021/01/10 20:58:49 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/15 15:15:11 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	arrange_env_val(char **command, t_list **envs)
 	current = *envs;
 	while (current)
 	{
-		if (isin_key(env->key, *envs))
+		if (isin_key(env->key, current))
 		{
 			update_val(env, &current);
 			return ;
