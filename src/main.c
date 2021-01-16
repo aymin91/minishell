@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2021/01/15 15:59:40 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:11:04 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,15 @@ int			main(int argc, char **argv, char **envp)
 
 	g_envp = envp;
 	init_sig();
+	signal(SIGINT, sigint_handler);
 	set_envp(argc, argv, envp, &envs);
 	line = 0;
 	while (1)
 	{
-		write(1, ">", 1);
+		print_prompt();
 		if (!insert_input(&line) ||
-		!is_single_line_command(line) ||
-		(commands = get_commands(line)) == NULL)
+			!is_single_line_command(line) ||
+			(commands = get_commands(line)) == NULL)
 			continue;
 		i = -1;
 		while (commands[++i])
@@ -64,5 +65,8 @@ int			main(int argc, char **argv, char **envp)
 		}
 		free(commands);
 	}
+
+
+
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/15 22:10:17 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/16 18:11:40 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int				g_exit;
 int				g_i;
 int				g_j;
 int				g_start;
+
 
 void			command_cd(char **commands, t_list *envs);
 void			command_echo(char **command);
@@ -127,5 +128,8 @@ void			check_right_start_quote(char **command, int i, t_quote *q);
 void			check_right_end_quote(char **command, int i, t_quote *q);
 char			**tokenize_quoted_string(char *str, char separator);
 char			**remove_empty_str(char **strs);
+void	sigint_handler(int sig);
+void	print_prompt(void);
+void	terminated_by_ctrl_c(int sig);
 
 #endif

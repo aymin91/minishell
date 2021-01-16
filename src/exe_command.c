@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:08:59 by amin              #+#    #+#             */
-/*   Updated: 2021/01/15 18:05:26 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/16 18:16:27 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	exe_dollar(char *commands)
 	if (commands[0] == '$' && commands[1] == '?')
 	{
 		write_exit();
+		g_exit = 127;
 		return (1);
 	}
 	return (0);
@@ -70,19 +71,21 @@ void		exe_else(char *commands, t_list *envs)
 	if (!path)
 	{
 		ft_puterr_fd(command[0], ": command not found", 2);
+		g_exit = 127;
 		return ;
 	}
-	child = fork();
-	if (child == 0)
+	signal(SIGINT, terminated_by_ctrl_c);
+	if ((child = fork()) == 0)
 	{
 		if (execve(path, command, g_envp) == -1)
 			exit(ft_puterr_fd(command[0], ": commands not found", 2));
-		exit(EXIT_SUCCESS);
 	}
 	wait(&stat);
+	signal(SIGINT, sigint_handler);
 	free(path);
 	ft_freearr(command);
-	g_exit = stat / 256;
+	if (stat != 2)
+		g_exit = stat / 256;
 }
 
 void		exe_commands(char *commands, t_list **envs)
