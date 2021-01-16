@@ -6,32 +6,63 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:38:12 by amin              #+#    #+#             */
-/*   Updated: 2021/01/08 10:50:10 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/17 03:59:51 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	command_cd(char **commands, t_list *envs)
+static void		init_oldpwd(char *value, t_list **envs)
 {
-	char	*path;
+	t_env		*env;
 
-	path = 0;
+	if (!(env = (t_env *)malloc(sizeof(t_env))))
+		return ;
+	env->key = ft_strdup("OLDPWD");
+	env->value = ft_strdup(value);
+	ft_lstadd_back(envs, ft_lstnew(env));
+	g_first_old = 1;
+}
+
+static void		gicho(char *key, char *str, t_list *envs)
+{
+	if (!str)
+		return ;
+	while (envs)
+	{
+		if (!ft_strcmp(key, ((t_env *)envs->content)->key))
+		{
+			free(((t_env *)envs->content)->value);
+			((t_env *)envs->content)->value = ft_strdup(str);
+			return ;
+		}
+		envs = envs->next;
+	}
+}
+
+void			command_cd(char **commands, t_list *envs)
+{
+	char		*path;
+	char		*cwd;
+	char		*oldpwd;
+
+	oldpwd = ft_strdup(find_value("PWD", envs));
+	if (g_first_old == 0)
+		init_oldpwd(oldpwd, &envs);
+	else
+		gicho("OLDPWD", oldpwd, envs);
 	if (commands[1] == NULL || ((commands[1] != NULL) &&
-		(ft_strlen(commands[1]) == 1) && (commands[1][0] == '~')))
+		(ft_strlen(commands[1]) == 1) && (commands[1][0] == '~')) ||
+		((commands[1] != NULL) && (!ft_strcmp(commands[1], "--"))))
 	{
 		path = find_value("HOME", envs);
 		if (chdir(path) == -1)
-			ft_putendl_fd(strerror(errno), 2);
-		return ;
+			ft_putendl_fd("HOME not set", 2);
 	}
-	else if (*commands[1] == '$')
-	{
-		path = find_value(commands[1] + 1, envs);
-		if (chdir(path) == -1)
-			ft_putendl_fd(strerror(errno), 2);
-		return ;
-	}
-	if (chdir(commands[1]) == -1)
+	else if (chdir(commands[1]) == -1)
 		ft_putendl_fd(strerror(errno), 2);
+	cwd = getcwd(NULL, 0);
+	gicho("PWD", cwd, envs);
+	free(cwd);
+	free(oldpwd);
 }

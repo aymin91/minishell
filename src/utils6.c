@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils6.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: amin <amin@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 00:20:15 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 00:40:23 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/16 17:28:42 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,4 @@ void		print_redir_syn(int syn, t_redir *redir)
 		ft_putendl_fd("syntax error near unexpected token `>'", 1);
 	free_redir(redir);
 	return ;
-}
-
-void		free_redir(t_redir *redir)
-{
-	free(redir->type);
-	ft_freearr(redir->argv);
-	ft_freearr(redir->commands);
 }

@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:31 by amin              #+#    #+#             */
-/*   Updated: 2021/01/10 21:44:18 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/17 02:41:50 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			isin_key(char *key, t_list *envs)
 	len = ft_strlen(key);
 	key_point = ft_strlen((char *)((t_env *)envs->content)->key);
 	i = (len > key_point) ? len : key_point;
-	if (ft_strncmp(key, ((t_env *)envs->content)->key, i) == 0)
+	if (ft_strcmp(key, ((t_env *)envs->content)->key) == 0)
 		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:07:44 by amin              #+#    #+#             */
-/*   Updated: 2021/01/14 16:02:20 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/16 18:34:19 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void				push_last_ele(t_list **list, char *str);
 char				*trim_spaces(char *str);
 int					is_valid_quote_pairs(char *str);
 void				parse_backslash_in_dquote(char **src, t_list *envs);
+char				*ft_strstr(const char *haystack, const char *needle);
 
 #endif
