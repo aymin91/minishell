@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: amin <amin@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 00:40:35 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/16 19:10:36 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 # define MINISHELL_H
 
 # include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <errno.h>
-# include <unistd.h>
 # include <fcntl.h>
 # include <sys/types.h>
+# include <sys/uio.h>
+# include <dirent.h>
+# include <stdlib.h>
+# include <sys/param.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <string.h>
+# include <limits.h>
+# include <errno.h>
+# include <unistd.h>
 # include "../libft/libft.h"
 
 # define BUFFER_SIZE	1
@@ -130,5 +136,7 @@ char			**remove_empty_str(char **strs);
 int				check_redir_syntax(char *commands);
 void			print_redir_syn(int syn, t_redir *redir);
 void			free_redir(t_redir *redir);
+int				ft_strequ(char const *s1, char const *s2);
+char			*replace_str(char *search, char *replace, char *subject);
 
 #endif
