@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 17:36:29 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/17 03:08:48 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void		set_envp(int argc, char **argv, char **envp, t_list **envs)
 		env = (t_env *)malloc(sizeof(t_env));
 		i = ft_strchr(*envp, '=') - *envp;
 		env->key = ft_substr(*envp, 0, i);
-		env->value = ft_substr(*envp, i + 1, ft_strlen(*envp) - i - 1);
+		if (!ft_strcmp("PWD", env->key))
+			env->value = getcwd(NULL, 0);
+		else
+			env->value = ft_substr(*envp, i + 1, ft_strlen(*envp) - i - 1);
 		ft_lstadd_back(envs, ft_lstnew(env));
 		envp++;
 	}

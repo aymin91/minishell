@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 19:10:36 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/17 03:28:43 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int				g_exit;
 int				g_i;
 int				g_j;
 int				g_start;
+int				g_first_old;
 
 void			command_cd(char **commands, t_list *envs);
 void			command_echo(char **command);
