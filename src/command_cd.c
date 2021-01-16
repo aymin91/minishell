@@ -6,11 +6,12 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:38:12 by amin              #+#    #+#             */
-/*   Updated: 2021/01/17 03:59:51 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/17 05:06:34 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+# define D_ERROR "cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory"
 
 static void		init_oldpwd(char *value, t_list **envs)
 {
@@ -40,22 +41,28 @@ static void		gicho(char *key, char *str, t_list *envs)
 	}
 }
 
+char			*check_root(char **commands, t_list *envs)
+{
+	if (commands[1] == NULL || ((commands[1] != NULL) &&
+		(ft_strlen(commands[1]) == 1) && (commands[1][0] == '~')) ||
+		((commands[1] != NULL) && (!ft_strcmp(commands[1], "--"))))
+		return (find_value("HOME", envs));
+	return ("");
+}
+
 void			command_cd(char **commands, t_list *envs)
 {
-	char		*path;
+	char 		*path;
 	char		*cwd;
 	char		*oldpwd;
 
 	oldpwd = ft_strdup(find_value("PWD", envs));
-	if (g_first_old == 0)
+	if (g_first_old == 0 && !find_value("OLDPWD", envs))
 		init_oldpwd(oldpwd, &envs);
 	else
 		gicho("OLDPWD", oldpwd, envs);
-	if (commands[1] == NULL || ((commands[1] != NULL) &&
-		(ft_strlen(commands[1]) == 1) && (commands[1][0] == '~')) ||
-		((commands[1] != NULL) && (!ft_strcmp(commands[1], "--"))))
+	if ((path = check_root(commands, envs))[0])
 	{
-		path = find_value("HOME", envs);
 		if (chdir(path) == -1)
 			ft_putendl_fd("HOME not set", 2);
 	}
