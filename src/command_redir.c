@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:35:05 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 00:45:28 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/17 16:40:21 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int			run_bredir(t_redir *redir, t_list **envs)
 		(execve(path, redir->commands, g_envp) == -1))
 		return (ft_puterr_fd(redir->commands[0], ": command not found", 2));
 	free(path);
-	ft_freearr(redir->commands);
+	if (redir->commands != NULL)
+		ft_freearr(redir->commands);
 	return (EXIT_SUCCESS);
 }
 
@@ -57,7 +58,8 @@ int			run_dredir(t_redir *redir, t_list **envs)
 		(execve(path, redir->commands, g_envp) == -1))
 		return (ft_puterr_fd(redir->commands[0], ": command not found", 2));
 	free(path);
-	ft_freearr(redir->commands);
+	if (redir->commands != NULL)
+		ft_freearr(redir->commands);
 	return (EXIT_SUCCESS);
 }
 
@@ -80,7 +82,8 @@ int			run_redir(t_redir *redir, t_list **envs)
 		(execve(path, redir->commands, g_envp) == -1))
 		return (ft_puterr_fd(redir->commands[0], ": command not found", 2));
 	free(path);
-	ft_freearr(redir->commands);
+	if (redir->commands != NULL)
+		ft_freearr(redir->commands);
 	return (EXIT_SUCCESS);
 }
 

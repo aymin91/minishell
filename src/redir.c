@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:20:20 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 00:40:09 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/17 17:06:05 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			parse_redir1(char *cmds, t_redir *redir, t_quote *q)
 	{
 		if (ft_strchr("><", cmds[g_i]))
 		{
-			if (!(q->start < g_i && g_i < q->end))
+			if (!isin_quote(cmds) || !(q->start < g_i && g_i < q->end))
 			{
 				if (g_j > 0 && ((redir->type[0] == BREDIR && cmds[g_i] != '<')
 				|| (redir->type[0] != BREDIR && cmds[g_i] == '<')))
