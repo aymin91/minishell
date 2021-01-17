@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:08:59 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 18:16:27 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/17 14:44:58 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,19 @@ void		exe_else(char *commands, t_list *envs)
 		g_exit = 127;
 		return ;
 	}
-	signal(SIGINT, terminated_by_ctrl_c);
+	signal(SIGINT, signal_handling);
+	signal(SIGQUIT, signal_handling);
 	if ((child = fork()) == 0)
 	{
 		if (execve(path, command, g_envp) == -1)
 			exit(ft_puterr_fd(command[0], ": commands not found", 2));
 	}
 	wait(&stat);
-	signal(SIGINT, sigint_handler);
 	free(path);
 	ft_freearr(command);
-	if (stat != 2)
+	if (!interrupted)
 		g_exit = stat / 256;
+	interrupted = 0;
 }
 
 void		exe_commands(char *commands, t_list **envs)

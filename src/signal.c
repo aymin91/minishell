@@ -6,44 +6,32 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:15:12 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 18:21:51 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/17 14:42:24 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	signal_handling(int sig)
-{
-	int		stat;
-
-	if (sig == SIGINT)
-	{
-		ft_putstr_fd("\n", 1);
-		g_exit = 1;
-		return ;
-	}
-	else if (sig == SIGQUIT)
-	{
-		sig = wait(&stat);
-		ft_putstr_fd("\n", 1);
-		g_exit = 127;
-		if (sig != -1)
-			ft_putstr_fd("^\\Quit : 3\n", 1);
-	}
-	return ;
-}
 
 void	print_prompt(void)
 {
 	ft_putstr_fd("> ", 1);
 }
 
-void	terminated_by_ctrl_c(int sig)
+void	signal_handling(int sig)
 {
-	if (sig != SIGINT)
+	if (sig == SIGINT)
+		ft_putendl_fd("", 1);
+	else if (sig == SIGQUIT)
+		ft_putendl_fd("Quit: 3", 1);
+	g_exit = 128 + sig;
+	interrupted = 1;
+}
+
+void	sigquit_handler(int sig)
+{
+	if (sig != SIGQUIT)
 		return ;
-	ft_putendl_fd("",1);
-	g_exit = 130;
+	ft_putstr_fd("\b\b  \b\b", 1);
 }
 
 void	sigint_handler(int sig)

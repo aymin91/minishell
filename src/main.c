@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 18:11:04 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/17 14:32:21 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void		init_sig(void)
 {
-	signal(SIGINT, (void *)signal_handling);
-	signal(SIGQUIT, (void *)signal_handling);
+	signal(SIGQUIT, sigquit_handler);
+	signal(SIGINT, sigint_handler);
 }
 
 void		set_envp(int argc, char **argv, char **envp, t_list **envs)
@@ -37,7 +37,9 @@ void		set_envp(int argc, char **argv, char **envp, t_list **envs)
 		envp++;
 	}
 }
-
+void tmp(int num){
+	num++;
+}
 int			main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -46,12 +48,11 @@ int			main(int argc, char **argv, char **envp)
 	t_list	*envs;
 
 	g_envp = envp;
-	init_sig();
-	signal(SIGINT, sigint_handler);
 	set_envp(argc, argv, envp, &envs);
 	line = 0;
 	while (1)
 	{
+		init_sig();
 		print_prompt();
 		if (!insert_input(&line) ||
 			!is_single_line_command(line) ||
@@ -65,8 +66,5 @@ int			main(int argc, char **argv, char **envp)
 		}
 		free(commands);
 	}
-
-
-
 	return (0);
 }

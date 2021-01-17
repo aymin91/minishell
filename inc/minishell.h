@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/16 18:11:40 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/17 14:40:31 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int				g_exit;
 int				g_i;
 int				g_j;
 int				g_start;
+int				interrupted;
 
 
 void			command_cd(char **commands, t_list *envs);
@@ -131,5 +132,6 @@ char			**remove_empty_str(char **strs);
 void	sigint_handler(int sig);
 void	print_prompt(void);
 void	terminated_by_ctrl_c(int sig);
+void	sigquit_handler(int sig);
 
 #endif
