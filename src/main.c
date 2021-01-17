@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:38:25 by amin              #+#    #+#             */
-/*   Updated: 2021/01/17 14:32:21 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/17 15:03:59 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ void		set_envp(int argc, char **argv, char **envp, t_list **envs)
 		envp++;
 	}
 }
-void tmp(int num){
-	num++;
-}
+
 int			main(int argc, char **argv, char **envp)
 {
 	char	*line;

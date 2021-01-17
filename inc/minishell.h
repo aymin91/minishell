@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
-/*   Updated: 2021/01/17 14:40:31 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/17 15:02:08 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,8 @@ int				g_exit;
 int				g_i;
 int				g_j;
 int				g_start;
-int				interrupted;
+int				g_interrupted;
 int				g_first_old;
-
 
 void			command_cd(char **commands, t_list *envs);
 void			command_echo(char **command);
@@ -136,15 +135,14 @@ void			check_right_start_quote(char **command, int i, t_quote *q);
 void			check_right_end_quote(char **command, int i, t_quote *q);
 char			**tokenize_quoted_string(char *str, char separator);
 char			**remove_empty_str(char **strs);
-void	sigint_handler(int sig);
-void	print_prompt(void);
-void	terminated_by_ctrl_c(int sig);
-void	sigquit_handler(int sig);
+void			sigint_handler(int sig);
+void			print_prompt(void);
+void			terminated_by_ctrl_c(int sig);
+void			sigquit_handler(int sig);
 int				check_redir_syntax(char *commands);
 void			print_redir_syn(int syn, t_redir *redir);
 void			free_redir(t_redir *redir);
 int				ft_strequ(char const *s1, char const *s2);
 char			*replace_str(char *search, char *replace, char *subject);
-
 
 #endif

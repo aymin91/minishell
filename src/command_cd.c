@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:38:12 by amin              #+#    #+#             */
-/*   Updated: 2021/01/17 05:06:34 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/17 15:09:39 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-# define D_ERROR "cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory"
 
 static void		init_oldpwd(char *value, t_list **envs)
 {
@@ -52,7 +51,7 @@ char			*check_root(char **commands, t_list *envs)
 
 void			command_cd(char **commands, t_list *envs)
 {
-	char 		*path;
+	char		*path;
 	char		*cwd;
 	char		*oldpwd;
 

@@ -6,7 +6,7 @@
 /*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:15:12 by amin              #+#    #+#             */
-/*   Updated: 2021/01/17 14:42:24 by gicho            ###   ########.fr       */
+/*   Updated: 2021/01/17 15:01:42 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	signal_handling(int sig)
 	else if (sig == SIGQUIT)
 		ft_putendl_fd("Quit: 3", 1);
 	g_exit = 128 + sig;
-	interrupted = 1;
+	g_interrupted = 1;
 }
 
 void	sigquit_handler(int sig)
