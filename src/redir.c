@@ -6,7 +6,7 @@
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:20:20 by amin              #+#    #+#             */
-/*   Updated: 2021/01/13 01:28:54 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/16 00:40:09 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,23 +90,28 @@ void		open_file(t_redir *redir)
 
 void		exe_redir(char *commands, t_list **envs)
 {
-	int		i;
 	int		res;
+	int		syn;
 	t_redir	redir;
 	t_quote	q;
 
 	init_redir(commands, &redir);
+	if ((syn = check_redir_syntax(commands)) <= 0)
+	{
+		print_redir_syn(syn, &redir);
+		return ;
+	}
 	if ((res = parse_redir1(commands, &redir, &q)) <= 0)
 	{
 		if (res < 0)
 			ft_putendl_fd("syntax error near unexpected token 'newline'", 1);
 		return ;
 	}
-	i = -1;
-	while (redir.commands[++i])
+	g_i = -1;
+	while (redir.commands[++g_i])
 	{
-		if (isin_quote(redir.commands[i]))
-			redir.commands[i] = specify_cmd(redir.commands[i], *envs);
+		if (isin_quote(redir.commands[g_i]))
+			redir.commands[g_i] = specify_cmd(redir.commands[g_i], *envs);
 	}
 	open_file(&redir);
 	command_redir(&redir, envs);

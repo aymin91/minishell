@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_pwd.c                                      :+:      :+:    :+:   */
+/*   utils7.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/24 10:37:13 by amin              #+#    #+#             */
-/*   Updated: 2021/01/17 05:01:44 by amin             ###   ########.fr       */
+/*   Created: 2021/01/16 17:28:50 by amin              #+#    #+#             */
+/*   Updated: 2021/01/17 03:59:42 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	command_pwd(void)
+void		free_redir(t_redir *redir)
 {
-	char	*pwd;
-
-	pwd = malloc(1025);
-	getcwd(pwd, 1024);
-	ft_putendl_fd(pwd, 1);
-	free(pwd);
+	free(redir->type);
+	ft_freearr(redir->argv);
+	ft_freearr(redir->commands);
 }

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 09:37:55 by amin              #+#    #+#             */
 /*   Updated: 2021/01/17 14:40:31 by gicho            ###   ########.fr       */
@@ -14,13 +14,19 @@
 # define MINISHELL_H
 
 # include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <errno.h>
-# include <unistd.h>
 # include <fcntl.h>
 # include <sys/types.h>
+# include <sys/uio.h>
+# include <dirent.h>
+# include <stdlib.h>
+# include <sys/param.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <string.h>
+# include <limits.h>
+# include <errno.h>
+# include <unistd.h>
 # include "../libft/libft.h"
 
 # define BUFFER_SIZE	1
@@ -64,6 +70,7 @@ int				g_i;
 int				g_j;
 int				g_start;
 int				interrupted;
+int				g_first_old;
 
 
 void			command_cd(char **commands, t_list *envs);
@@ -133,5 +140,11 @@ void	sigint_handler(int sig);
 void	print_prompt(void);
 void	terminated_by_ctrl_c(int sig);
 void	sigquit_handler(int sig);
+int				check_redir_syntax(char *commands);
+void			print_redir_syn(int syn, t_redir *redir);
+void			free_redir(t_redir *redir);
+int				ft_strequ(char const *s1, char const *s2);
+char			*replace_str(char *search, char *replace, char *subject);
+
 
 #endif

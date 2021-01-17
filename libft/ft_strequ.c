@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_pwd.c                                      :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/24 10:37:13 by amin              #+#    #+#             */
-/*   Updated: 2021/01/17 05:01:44 by amin             ###   ########.fr       */
+/*   Created: 2021/01/16 22:53:12 by amin              #+#    #+#             */
+/*   Updated: 2021/01/17 00:39:52 by amin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	command_pwd(void)
+int		ft_strequ(char *s1, char *s2)
 {
-	char	*pwd;
-
-	pwd = malloc(1025);
-	getcwd(pwd, 1024);
-	ft_putendl_fd(pwd, 1);
-	free(pwd);
+	if (!s1 || !s2)
+		return (0);
+	if (!ft_strcmp(s1, s2))
+		return (1);
+	return (0);
 }

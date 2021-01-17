@@ -32,7 +32,10 @@ void		set_envp(int argc, char **argv, char **envp, t_list **envs)
 		env = (t_env *)malloc(sizeof(t_env));
 		i = ft_strchr(*envp, '=') - *envp;
 		env->key = ft_substr(*envp, 0, i);
-		env->value = ft_substr(*envp, i + 1, ft_strlen(*envp) - i - 1);
+		if (!ft_strcmp("PWD", env->key))
+			env->value = getcwd(NULL, 0);
+		else
+			env->value = ft_substr(*envp, i + 1, ft_strlen(*envp) - i - 1);
 		ft_lstadd_back(envs, ft_lstnew(env));
 		envp++;
 	}
