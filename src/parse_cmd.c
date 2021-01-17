@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amin <amin@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gicho <gicho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:07:58 by amin              #+#    #+#             */
-/*   Updated: 2021/01/15 15:59:00 by amin             ###   ########.fr       */
+/*   Updated: 2021/01/17 14:50:11 by gicho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	gnl_input(int n, char **line)
 			free(buf);
 			exit(EXIT_SUCCESS);
 		}
-		ft_putstr_fd("  \b\b", 1);
+		ft_putstr_fd("\b\b  \b\b", 1);
 		n = 1;
 		free(*line);
 	}
